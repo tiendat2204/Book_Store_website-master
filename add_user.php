@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,24 +44,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <?php include 'admin_header.php'; ?>
+    <section class="container_user">
+        <div class="user_add">
+            <h1>Thêm tài khoản</h1>
+            <form method="post" action="">
+                <div class="inputGroup">
+                    <input type="text" required="" autocomplete="off" id="name" name="name">
+                    <label for="name">Tên</label>
+                </div>
 
-    <section class="add-user">
-        <h1 class="title">Thêm người dùng mới</h1>
-        <form method="post" action="">
-            <label for="name">Tên người dùng:</label>
-            <input type="text" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" name="email" required>
-            <label for="password">Mật khẩu:</label>
-            <input type="password" name="password" required>
+                <div class="inputGroup">
+                    <input type="email" required="" autocomplete="off" id="email" name="email">
+                    <label for="email">Email</label>
+                </div>
 
-            <label for="user_type">Loại người dùng:</label>
-            <select name="user_type" required>
-                <option value="user">Người dùng</option>
-                <option value="admin">Admin</option>
-            </select>
-            <button type="submit">Thêm người dùng</button>
-        </form>
+                <div class="inputGroup">
+                    <input type="text" required="" autocomplete="off" id="user_type" name="user_type">
+                    <label for="user_type">Loại người dùng (User-Admin)</label>
+                </div>
+
+                <div class="inputGroup">
+                    <input type="password" required="" autocomplete="off" id="password" name="password">
+                    <label for="password">Mật khẩu</label>
+                </div>
+
+                <div class="inputGroup">
+                <button class="btn-user" type="submit"> Thêm người dùng
+</button>
+                </div>
+            </form>
+        </div>
     </section>
 
     <script src="js/admin_script1.js"></script>

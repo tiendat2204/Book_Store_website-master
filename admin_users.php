@@ -50,9 +50,9 @@ if (isset($_GET['delete'])) {
     <section class="users">
 
 <h1 class="title"> Tài khoản người dùng </h1>
+<a href="add_user.php" class="add-btn">Thêm người dùng</a>
 
 <div class="box-container">
-
     <?php
     try {
         // Sử dụng biến kết nối từ tệp cấu hình
@@ -78,7 +78,7 @@ if (isset($_GET['delete'])) {
     }
     ?>
 </div>
-<a href="add_user.php" class="add-btn">Thêm người dùng</a>
+
 
 </section>
 

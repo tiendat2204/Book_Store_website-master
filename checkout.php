@@ -6,8 +6,7 @@ include './controller/thanhtoan.php';
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
 
@@ -57,13 +56,13 @@ include './controller/thanhtoan.php';
     <form action="" method="post">
         <h3>Đặt hàng của bạn</h3>
         <div class="flex">
-        <div class="inputBox">
+            <div class="inputBox">
                 <span>Tên của bạn :</span>
                 <input type="text" name="name" required placeholder="Nhập tên của bạn" value="<?php echo isset($_SESSION['user_name']) ? $_SESSION['user_name'] : ''; ?>">
             </div>
             <div class="inputBox">
                 <span>Số điện thoại của bạn :</span>
-                <input type="number" name="number" required placeholder="Nhập số điện thoại của bạn" value="<?php echo isset($_SESSION['user_number']) ? $_SESSION['user_number'] : ''; ?>">
+                <input type="text" name="number" required placeholder="Nhập số điện thoại của bạn" value="<?php echo isset($_SESSION['user_phone']) ? $_SESSION['user_phone'] : ''; ?>">
             </div>
             <div class="inputBox">
                 <span>Email của bạn :</span>
@@ -74,16 +73,16 @@ include './controller/thanhtoan.php';
                 <select name="method">
                     <option value="thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
                     <option value="thẻ tín dụng">Thẻ tín dụng</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="paytm">Paytm</option>
+                    <option value="paypal">Zalopay</option>
+                    <option value="paytm">MoMo</option>
                 </select>
             </div>
             <div class="inputBox">
-                <span>Địa chỉ dòng 1 :</span>
+                <span>Số nhà:</span>
                 <input type="number" min="0" name="flat" required placeholder="Ví dụ: căn hộ số">
             </div>
             <div class="inputBox">
-                <span>Địa chỉ dòng 2 :</span>
+                <span>Tên đường:</span>
                 <input type="text" name="street" required placeholder="Ví dụ: tên đường">
             </div>
             <div class="inputBox">

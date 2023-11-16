@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         link.addEventListener("click", function (event) {
             event.preventDefault();
             var category_id = this.getAttribute("href").split("=")[1];
-console.log(category_id);
+
             // Gửi yêu cầu Ajax để lấy sản phẩm dựa trên category_id
             fetch("category_ajax.php?category_id=" + category_id)
                 .then(function (response) {

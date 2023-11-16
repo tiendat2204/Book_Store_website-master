@@ -67,8 +67,8 @@ if(isset($_POST['submit'])) {
         }
     }
     ?>
-
-<div class="form-container">
+<div class="container-center">
+<div class="form-container" id="register-form">
 
 <form action="" method="post">
     <h3>Đăng ký ngay</h3>
@@ -85,7 +85,7 @@ if(isset($_POST['submit'])) {
 </form>
 
 </div>
-
+</div>
 </body>
 
 </html>

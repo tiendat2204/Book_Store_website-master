@@ -1,5 +1,4 @@
 <?php
-include './model/config.php';
 
 session_start();
 
@@ -18,9 +17,9 @@ if (isset($_POST['update_cart'])) {
     $update_cart_query->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
     
     if ($update_cart_query->execute()) {
-        $message[] = 'số lượng sản phẩm đã được cập nhật!';
+        $message[] = 'Số lượng sản phẩm đã được cập nhật!';
     } else {
-        $message[] = 'không thể cập nhật số lượng!';
+        $message[] = 'Không thể cập nhật số lượng!';
     }
 }
 
@@ -33,7 +32,7 @@ if (isset($_GET['delete'])) {
     if ($delete_cart_query->execute()) {
         header('location:cart.php');
     } else {
-        $message[] = 'không thể xóa khỏi giỏ hàng!';
+        $message[] = 'Không thể xóa khỏi giỏ hàng!';
     }
 }
 

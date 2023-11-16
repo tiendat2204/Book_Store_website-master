@@ -120,7 +120,6 @@ section {
 
 /* Add additional styling as needed */
 
-
 .message span {
   font-size: 2rem;
   color: var(--black);
@@ -468,24 +467,32 @@ section {
   font-size: 1.8rem;
   color: var(--black);
 }
-
+.users{
+  align-items: center;
+  text-align: center;
+}
 .users .box-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, 35rem);
   justify-content: center;
   gap: 1.5rem;
   max-width: 1200px;
+  height: 100rem;
   margin: 0 auto;
   align-items: flex-start;
+  background: rgb(236, 236, 236);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .users .box-container .box {
-  background-color: var(--white);
+ margin: 15px 10px ;
   padding: 2rem;
-  border: var(--border);
-  box-shadow: var(--box-shadow);
-  border-radius: 0.5rem;
+
   text-align: center;
+
+  border-radius: 30px;
+  background: #e0e0e0;
+  box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
 }
 
 .users .box-container .box p {
@@ -660,6 +667,7 @@ canvas {
   padding: 10px 20px;
   background-color: #007bff;
   color: #fff;
+  margin-bottom: 50px;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -670,50 +678,96 @@ canvas {
   background-color: #0056b3;
   transform: scale(1.05);
 }
-.add-user {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.add-user form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.add-user h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.add-user label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.add-user input[type="text"],
-.add-user input[type="email"],
-.add-user input[type="password"],
-.add-user select {
+.container_user {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+}
+.user_add {
+  text-align: center;
+  align-items: center;
+  max-width: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5f5f5;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 30%;
+}
+.inputGroup {
+  font-family: "Segoe UI", sans-serif;
+  margin: 1em 0 1em 0;
+  max-width: 100%;
+  position: relative;
 }
 
-.add-user button {
-  background-color: #007bff;
-  color: #fff;
+.inputGroup input {
+  font-size: 100%;
+  padding: 1.5em;
+  outline: none;
+  border: 2px solid rgb(200, 200, 200);
+  background-color: transparent;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.inputGroup label {
+  font-size: 100%;
+  position: absolute;
+  left: 0;
+  padding: 0.8em;
+  margin-left: 0.5em;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: rgb(100, 100, 100);
+}
+
+.inputGroup :is(input:focus, input:valid) ~ label {
+  transform: translateY(-50%) scale(0.9);
+  margin: 0em;
+  margin-left: 1.3em;
+  padding: 0.4em;
+  background-color: #f5f5f5;
+}
+
+.inputGroup :is(input:focus, input:valid) {
+  border-color: rgb(150, 150, 200);
+}
+.btn-user {
+  width: 10.5em;
+  height: 2.3em;
+  margin: 0.5em;
+  background: black;
+  color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
+  border-radius: 0.625em;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.add-user button:hover {
-  background-color: #0056b3;
+.btn-user:hover {
+  color: black;
+}
+
+.btn-user:after {
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+.btn-user:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
