@@ -47,8 +47,8 @@ include './controller/update_order.php';
                                 <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
                                 <select name="update_payment">
                                     <option value="" selected disabled><?php echo $fetch_orders['payment_status']; ?></option>
-                                    <option value="pending">Chưa thanh toán</option>
-                                    <option value="completed">Đã thanh toán</option>
+                                    <option value="Chưa giải quyết">Chưa giải quyết</option>
+                                    <option value="Đã giải quyết">Đã giải quyết</option>
                                 </select>
                                 <input type="submit" value="Cập nhật" name="update_order" class="option-btn">
                                 <a href="admin_orders.php?delete=<?php echo $fetch_orders['id']; ?>" onclick="return confirm('Xóa đơn hàng này?');" class="delete-btn">Xóa</a>

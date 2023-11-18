@@ -67,8 +67,8 @@ if (!isset($_SESSION['user_id'])) {
                             <p>Địa chỉ: <span><?php echo $fetch_orders['address']; ?></span> </p>
                             <p>Phương thức thanh toán: <span><?php echo $fetch_orders['method']; ?></span> </p>
                             <p>Đơn hàng của bạn: <span><?php echo $fetch_orders['total_products']; ?></span> </p>
-                            <p>Tổng giá: <span>$<?php echo $fetch_orders['total_price']; ?>/-</span> </p>
-                            <p>Tình trạng thanh toán: <span style="color:<?php if ($fetch_orders['payment_status'] == 'Chưa thanh toán') {
+                            <p>Tổng giá: <span><?php echo number_format($fetch_orders['total_price'], 0, ',', '.') . ' VND'; ?></span></p>
+                            <p>Tình trạng thanh toán: <span style="color:<?php if ($fetch_orders['payment_status'] == 'Chưa giải quyết') {
                                     echo 'red';
                                 } else {
                                     echo 'green';

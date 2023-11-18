@@ -78,7 +78,7 @@ $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : null;
             <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
         </a>
                         <div class="name"><?php echo $fetch_products['name']; ?></div>
-                        <div class="price">$<?php echo $fetch_products['price']; ?>/-</div>
+                        <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
                         <input type="number" min="1" name="product_quantity" value="1" class="qty">
                         <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
                         <input type="hidden" name="product_id" value="<?php echo isset($fetch_products['id']) ? $fetch_products['id'] : ''; ?>">

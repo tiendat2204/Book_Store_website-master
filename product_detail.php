@@ -5,10 +5,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $product_id = $_POST['product_id'] ?? null;
-    $product_quantity = $_POST['product_quantity'] ?? null;
-    if ($product_id && $product_quantity) {
         include './controller/add_to_cart.php';
-    }
 }
 
 $product_id = $_GET['product_id'] ?? null;
@@ -67,8 +64,9 @@ if ($product_id) {
                     <div class="col-md-6">
                         <h1 class="display-5 fw-bold text-dark"><?php echo $product_name; ?></h1>
                         <div class="fs-5 mb-5 text-danger">
-                            <span class="text-decoration-line-through text-muted">$45.00</span>
-                            <h2 class="text-danger"><?php echo "$" . $product_price; ?></h2>
+                            <span class="text-decoration-line-through text-muted">999.999đ</span>
+                            <h2 class="text-danger"><?php echo number_format($product_price, 0, '.', ',') . 'đ'; ?></h2>
+
                             <div class="in4-sach text-dark">
                                 <div class="medium mb-5">Tác giả:  <strong><?php echo $product_author; ?></strong></div>
                                 <div class="medium mb-5">Nhà xuất bản: <strong><?php echo $product_publisher; ?></strong></div>
@@ -82,7 +80,6 @@ if ($product_id) {
                         <form action="" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                             <div class="d-flex">
-                                <input class="form-control text-center me-6" id="inputQuantity" name="product_quantity" type="number" value="1" style="max-width: 6rem" />
                                 <button class="CartBtn" type="submit" name="add_to_cart">
                                     <span class="IconContainer"> 
                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(17, 17, 17)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>

@@ -37,7 +37,7 @@ if (isset($_POST['search'])) {
                             <img class="image" src="uploaded_img/<?php echo $fetch_product['image']; ?>" alt="">
                         </a>
                         <div class="name"><?php echo $fetch_product['name']; ?></div>
-                        <div class="price">$<?php echo $fetch_product['price']; ?>/-</div>
+                        <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
                         <input type="number" min="1" name="product_quantity" value="1" class="qty">
                         <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
                         <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">

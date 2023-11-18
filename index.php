@@ -1,5 +1,5 @@
 <?php
-include './controller/add_to_cart.php';
+include "./controller/add_to_cart.php";
 // Hàm để lấy số lượng bình luận cho một sản phẩm cụ thể
 function getCommentCount($productId, $pdo)
 {
@@ -130,7 +130,7 @@ function getCommentCount($productId, $pdo)
                         <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
                     </a>
                     <div class="name"><?php echo $fetch_products['name']; ?></div>
-                    <div class="price">$<?php echo $fetch_products['price']; ?>/-</div>
+                    <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
                     <div class="radio-input">
                         <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
                         <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
@@ -143,8 +143,6 @@ function getCommentCount($productId, $pdo)
                         <span class="star-icon"></i></span>
                         Bình luận: <?php echo $commentCount; ?>
                     </div>
-
-                    <input type="number" min="1" name="product_quantity" value="1" class="qty">
                     <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
                     <input type="hidden" name="product_id" value="<?php echo isset($fetch_products['id']) ? $fetch_products['id'] : ''; ?>">
                     <input type="hidden" name="product_price" value="<?php echo $fetch_products['price']; ?>">

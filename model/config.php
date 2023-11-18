@@ -5,5 +5,6 @@ try {
     echo "";
 } catch (PDOException $e) {
     die("Kết nối thất bại: " . $e->getMessage());
+    include '../controller/update_cart.php';
 }
 ?>

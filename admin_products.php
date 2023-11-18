@@ -179,7 +179,7 @@ if (isset($_POST['update_product'])) {
                     <div class="box">
                         <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
                         <div class="name"><?php echo $fetch_products['name']; ?></div>
-                        <div class="price">$<?php echo $fetch_products['price']; ?>/-</div>
+                        <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
 <div class="information-book">
 
     <div class="author">Tác giả: <?php echo $fetch_products['tacgia']; ?></div>
