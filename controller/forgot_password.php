@@ -1,11 +1,12 @@
 <?php
+session_start();
 include '../model/config.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require '../PHPMailer-master/src/Exception.php';
 require '../PHPMailer-master/src/PHPMailer.php';
 require '../PHPMailer-master/src/SMTP.php';
-
+$message = []; // Khởi tạo một mảng trống để lưu trữ thông báo
 if (isset($_POST['submit'])) {
     $email = $_POST['forgot_email'];
 
@@ -43,15 +44,27 @@ if (isset($_POST['submit'])) {
             // Content
             $mail->isHTML(true);                                        // Set email format to HTML
             $mail->Subject = 'Restart password!';
-            $mail->Body    = 'Hãy bấm vào liên kết bên để khôi phục mật khẩu: <a href="http://localhost:3000/xampp/htdocs/Book_Store_website-master/reset_password.php?email=' . $email . '&token=' . $token . '">Reset Password</a>';
+            $mail->Body    = 'Hãy bấm vào liên kết bên để khôi phục mật khẩu: <a href="http://localhost:3000/reset_password.php?email=' . $email . '&token=' . $token . '">Reset Password</a>';
             $mail->send();
-           
-            echo "Thư đặt đã được gửi đến địa chỉ email của bạn.";
+            $message[] = [
+                'type' => 'success',
+                'text' => 'Thư đặt đã được gửi đến địa chỉ email của bạn.'
+            ];
         } catch (Exception $e) {
             echo 'Lỗi: ' . $mail->ErrorInfo;
         }
     } else {
-        echo "Email không tồn tại.";
+        $message[] = [
+            'type' => 'error',
+            'text' => 'Email không tồn tại.'
+        ];
     }
+
+    // Lưu thông báo vào session
+    $_SESSION['forgot_password_message'] = $message;
 }
+
+// Chuyển hướng về trang login.php
+header('Location: ../login.php');
+exit();
 ?>

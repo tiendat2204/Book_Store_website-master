@@ -22,11 +22,11 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
             $update_users->execute();
 
             // Thông báo cho người dùng biết rằng mật khẩu của họ đã được thay đổi thành công
-            $message[] = 'Mật khẩu của bạn đã được thay đổi thành công.';
+            $message[] = 'Mật khẩu của bạn đã được thay đổi thành công vui lòng đăng nhập .';
 
             // Chuyển hướng đến trang đăng nhập
-            header('Location: login.php');
-            exit();
+           
+            
         }
     } else {
         $message[] = 'Liên kết không hợp lệ.';
@@ -70,13 +70,18 @@ if (isset($message)) {
 include './header.php'
 
 ?>
-<div class="form-container">
-    <form action="" method="post">
-        <h3>Đặt lại mật khẩu</h3>
-        <input type="password" name="password" placeholder="Mật khẩu mới" required class="box">
-        <input type="submit" name="submit" value="Đặt lại mật khẩu" class="btn1">
-    </form>
-</div>
+<section class="container-rsp">
+
+    <div class="form-container-rsp">
+        <form action="" method="post">
+            <h3 class="title-rsp">Đặt lại mật khẩu</h3>
+            <input type="email" name="email" placeholder="Email" required class="box-rsp" value="<?php echo isset($email) ? $email : ''; ?>" readonly>
+            
+<input class="box-rsp" type="password" placeholder="Mật khẩu mới" require name="password">
+            <input type="submit" name="submit" value="Đặt lại mật khẩu" class="btn1-rsp">
+        </form>
+    </div>
+</section>
 <?php 
 include 'footer.php'
 

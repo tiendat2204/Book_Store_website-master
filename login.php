@@ -23,7 +23,10 @@ if (isset($_POST['submit'])) {
             $_SESSION['admin_id'] = $row['id'];
 
             // Thông báo thành công
-            $message[] = 'Đăng nhập thành công!';
+            $message[] = [
+                'type' => 'success',
+                'text' => 'Đăng nhập thành công!'
+            ];
             // Không cần chuyển hướng ngay lập tức ở đây
         } else if ($row['user_type'] == 'user') {
             $_SESSION['user_name'] = $row['name'];
@@ -31,12 +34,20 @@ if (isset($_POST['submit'])) {
             $_SESSION['user_id'] = $row['id'];
 
             // Thông báo thành công
-            $message[] = 'Đăng nhập thành công!';
+            $message[] = [
+                'type' => 'success',
+                'text' => 'Đăng nhập thành công!'
+            ];
             // Không cần chuyển hướng ngay lập tức ở đây
         }
     } else {
-        $message[] = 'Sai email hoặc mật khẩu!';
+        $message[] = [
+            'type' => 'error',
+            'text' => 'Sai email hoặc mật khẩu!'
+        ];
     }
+    $_SESSION['login_message'] = $message;
+  
 }
 ?>
 
@@ -59,17 +70,42 @@ if (isset($_POST['submit'])) {
 <body>
 
 <?php
-if (isset($message)) {
-    foreach ($message as $msg) {
+if (isset($_SESSION['login_message'])) {
+    $loginMessage = $_SESSION['login_message'];
+
+    // Hiển thị thông báo từ $_SESSION
+    foreach ($loginMessage as $msg) {
         echo '
-        <div class="message">
-            <span>' . $msg . '</span>
+        <div class="message ' . $msg['type'] . '">
+            <span>' . $msg['text'] . '</span>
             <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
         </div>
         ';
     }
+
+    // Xóa thông báo sau khi đã hiển thị
+    unset($_SESSION['login_message']);
+  
+}
+
+// Hiển thị thông báo từ forgot_password.php
+if (isset($_SESSION['forgot_password_message'])) {
+    $forgotPasswordMessage = $_SESSION['forgot_password_message'];
+
+    foreach ($forgotPasswordMessage as $msg) {
+        echo '
+        <div class="message ' . $msg['type'] . '">
+            <span>' . $msg['text'] . '</span>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+        </div>
+        ';
+    }
+
+    // Xóa thông báo sau khi đã hiển thị
+    unset($_SESSION['forgot_password_message']);
 }
 ?>
+
 
 <div class="container-center">
 <div class="form-container" id="login-form">
@@ -114,7 +150,7 @@ if (isset($_SESSION['admin_name']) || isset($_SESSION['user_name'])) {
           <script>
             setTimeout(function(){
                 window.location.href = "' . (isset($_SESSION['admin_name']) ? 'admin_page.php' : 'index.php') . '";
-            }, 3000);
+            }, 2500);
           </script>';
 }
 ?>
