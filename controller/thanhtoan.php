@@ -62,5 +62,7 @@ if (isset($_POST['order_btn'])) {
             $delete_cart_query->execute();
         }
     }
+    $_SESSION['messages'] = $message;
+
 }
 ?>

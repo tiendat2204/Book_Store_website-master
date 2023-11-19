@@ -11554,3 +11554,29 @@ footer.footer .social-link:hover {
   transform: scale(0.95);
   transition-duration: 0.5s;
 }
+.slider-container{
+  width: 100%;
+ align-items: center;
+ margin-left: 14px;
+}
+.slick-prev,
+.slick-next {
+  font-size: 24px;
+color: black;
+cursor: pointer;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+z-index: 1;
+background-color: transparent;
+
+}
+
+.slick-prev {
+  left: -20px; /* Điều chỉnh vị trí của nút previous */
+}
+
+.slick-next {
+  right: -20px; /* Điều chỉnh vị trí của nút next */
+}
+

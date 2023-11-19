@@ -125,7 +125,7 @@ function getCommentCount($productId, $pdo)
                 $commentCount = getCommentCount($productId, $pdo);
 
                 ?>
-                <form action="" method="post" class="box">
+                <form action="" method="post" class="box" id="addToCartForm">
                     <a href="product_detail.php?product_id=<?php echo $fetch_products['id']; ?>">
                         <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
                     </a>
@@ -250,11 +250,10 @@ function getCommentCount($productId, $pdo)
     </div>
 </section>
 
-<?php include 'footer.php'; ?>
 
 <!-- Swiper JS file CDN link -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="js/add_to_cart.js"></script>
 
 <!-- Custom JS file link -->
+<?php include 'footer.php'; ?>
 <script src="js/script.js"></script>

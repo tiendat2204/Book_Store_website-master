@@ -74,12 +74,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $statement->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
     if ($statement->execute()) {
-        $message = 'Chỉnh sửa thành công!';
-        echo "<script>alert('$message'); window.location.href = '../profile.php';</script>";
+        $message[] = 'Chỉnh sửa thành công!';
+        $_SESSION['messages'] = $message; 
+        echo "<script> window.location.href = '../profile.php';</script>";
         exit();
     } else {
-        echo "Có lỗi xảy ra khi cập nhật thông tin hồ sơ.";
+        $message[] = 'Có lỗi xảy ra khi cập nhật thông tin hồ sơ.';
+    $_SESSION['messages'] = $message; 
     }
+
+
+    
 }
 
 include 'header.php';

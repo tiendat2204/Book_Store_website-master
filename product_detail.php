@@ -23,8 +23,7 @@ if ($product_id) {
         $product_name = $product_data['name'];
         $product_price = $product_data['price'];
         $product_image = $product_data['image'];
-
-        $related_products_query = $pdo->prepare("SELECT * FROM products WHERE category_id = :category_id AND id != :product_id LIMIT 4");
+        $related_products_query = $pdo->prepare("SELECT * FROM products WHERE category_id = :category_id AND id != :product_id LIMIT 10");
         $related_products_query->bindParam(':category_id', $product_data['category_id'], PDO::PARAM_INT);
         $related_products_query->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $related_products_query->execute();
@@ -48,8 +47,14 @@ if ($product_id) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style1.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Thư viện Slick JavaScript từ CDN -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
 </head>
+
 <body>
     <?php include 'header.php'; ?>
 
@@ -96,10 +101,11 @@ if ($product_id) {
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Các sản phẩm cùng mục</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 " style="width: 100%;">
+                <div class="slider-container" >
                     <?php foreach ($related_products as $related_product) : ?>
-                        <div class="col mb-5">
-                            <div class="card h-100">
+                        <div class="col mb-5 ms-3">
+                            <div class="card" style="height: 626px;">
                                 <a href="product_detail.php?product_id=<?php echo $related_product['id']; ?>">
                                     <img class="card-img-top" src="images/<?php echo $related_product['image']; ?>" alt="<?php echo $related_product['name']; ?>" />
                                 </a>
@@ -133,9 +139,11 @@ if ($product_id) {
                     <?php endforeach; ?>
                 </div>
             </div>
+          
+            </div>
         </section>
 
-        <form action="post_comment.php" method="post" class="comment-form">
+        <form action="./controller/post_comment.php" method="post" class="comment-form">
             <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
             <input type="text" name="comment" placeholder="Nhập bình luận của bạn" required>
             <button type="submit" class="btn_comment">Gửi bình luận</button>
@@ -175,7 +183,20 @@ if ($product_id) {
     </div>
 
     <?php include 'footer.php'; ?>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
     <script src="js/script.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('.slider-container').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            prevArrow: '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
+            nextArrow: '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>',
+        });
+    });
+</script>
+
 </body>
 </html>

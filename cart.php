@@ -103,7 +103,7 @@ include './controller/cartCURD.php';
                                             <div id="total-price" class="text-start text-md-end custom-total-price">
     <h4 class="fs-3">Tổng tiền: <strong id="grand-total" style="margin-left: 20px; color: #ff0000;">
         <?= $total_products ?>
-    </strong>đ</h4>
+    </strong></h4>
 </div>
 
                                         </div>
@@ -138,7 +138,7 @@ include './controller/cartCURD.php';
         <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 fs-3">
                 Tổng tiền
-                <span id="grand-total-display" class="fs-5"><span id="grand-total-all-prod"></span> đ</span>
+                <span id="grand-total-display" class="fs-5"><span id="grand-total-all-prod"></span> </span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center px-0 fs-3">
                 Số sản phẩm: 
@@ -151,7 +151,7 @@ include './controller/cartCURD.php';
                         <p class="mb-0 fs-6">(Bao gồm thuế VAT)</p>
                     </strong>
                 </div>
-                <span id="grand-total-strong" class="fs-5"><strong><span id="grand-total-all"></span> đ</strong></span>
+                <span id="grand-total-strong" class="fs-5"><strong><span id="grand-total-all"></span> </strong></span>
             </li>
         </ul>
         <a href="checkout.php" class="btn btn-primary btn-lg fs-5">

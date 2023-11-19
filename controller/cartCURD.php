@@ -21,6 +21,8 @@ if (isset($_GET['delete'])) {
     } catch (PDOException $e) {
         $message[] = 'Không thể xóa khỏi giỏ hàng! Lỗi: ' . $e->getMessage();
     }
+    $_SESSION['messages'] = $message;
+
 }
 
 if (isset($_GET['delete_all'])) {
@@ -39,5 +41,7 @@ if (isset($_GET['delete_all'])) {
     } catch (PDOException $e) {
         $message[] = 'Không thể xóa tất cả! Lỗi: ' . $e->getMessage();
     }
+    $_SESSION['messages'] = $message;
+
 }
 ?>

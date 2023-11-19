@@ -22,6 +22,8 @@ if (isset($_POST['update_order'])) {
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
     }
+    $_SESSION['messages'] = $message;
+
 }
 
 if (isset($_GET['delete'])) {
@@ -35,6 +37,8 @@ if (isset($_GET['delete'])) {
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
     }
+    $_SESSION['messages'] = $message;
+
 }
 
 ?>

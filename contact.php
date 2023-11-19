@@ -32,6 +32,8 @@ if (isset($_POST['send'])) {
         // Handle the case where the user is not logged in, for example:
         $message[] = 'Bạn cần đăng nhập để gửi tin nhắn';
     }
+    $_SESSION['messages'] = $message;
+
 }
 ?>
 

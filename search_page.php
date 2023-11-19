@@ -3,7 +3,27 @@
 include './controller/add_to_cart.php';
 $categories_query = $pdo->query("SELECT * FROM categories");
 $categories = $categories_query->fetchAll(PDO::FETCH_ASSOC);
+function getCommentCount($productId, $pdo)
+{
+    try {
+        // Chuẩn bị truy vấn SQL để đếm số lượng bình luận cho sản phẩm có ID tương ứng
+        $sql = "SELECT COUNT(*) AS comment_count FROM comment WHERE product_id = :product_id";
 
+        // Chuẩn bị và thực thi truy vấn
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Lấy kết quả
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Trả về số lượng bình luận
+        return $result['comment_count'];
+    } catch (PDOException $e) {
+        // Xử lý lỗi nếu có
+        echo "Error: " . $e->getMessage();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -94,6 +114,10 @@ $categories = $categories_query->fetchAll(PDO::FETCH_ASSOC);
                         <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
                         <input type="number" min="1" name="product_quantity" value="1" class="qty">
                         <input type="hidden" name="product_name" value="<?php echo $fetch_product['name']; ?>">
+                        <div class="comment-count">
+    <span class="star-icon"></i></span>
+    Bình luận: <?php echo getCommentCount($fetch_product['id'], $pdo); ?>
+</div>
                         <input type="hidden" name="product_price" value="<?php echo $fetch_product['price']; ?>">
                         <input type="hidden" name="product_image" value="<?php echo $fetch_product['image']; ?>">
                         <input type="submit" value="Thêm giỏ hàng" name="add_to_cart" class="btn1">

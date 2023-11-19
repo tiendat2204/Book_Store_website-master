@@ -1,17 +1,21 @@
 <?php
-if (isset($message) && is_array($message)) {
-    foreach ($message as $msg) {
+
+
+if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
+    foreach ($_SESSION['messages'] as $msg) {
         echo '
-      <div class="message">
-         <span>' . $msg . '</span>
-         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-      </div>
-      ';
+            <div class="message">
+                <span>' . $msg . '</span>
+                <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+            </div>
+        ';
     }
+
+    // Xóa các thông báo sau khi đã hiển thị
+    unset($_SESSION['messages']);
 }
-
 ?>
-
+ 
 <header class="header">
 
     <div class="header-1">

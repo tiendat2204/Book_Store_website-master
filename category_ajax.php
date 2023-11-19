@@ -11,7 +11,6 @@ if (isset($_GET['category_id'])) {
     while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
         $products[] = $fetch_products;
     }
-
     echo json_encode($products);
 }
 ?>

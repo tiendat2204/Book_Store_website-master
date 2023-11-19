@@ -1,6 +1,6 @@
 <?php
-if (isset($message)) {
-    foreach ($message as $msg) {
+if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
+    foreach ($_SESSION['messages'] as $msg) {
         echo '
             <div class="message">
                 <span>' . $msg . '</span>
@@ -8,6 +8,7 @@ if (isset($message)) {
             </div>
             ';
     }
+    unset($_SESSION['messages']);
 }
 ?>
 

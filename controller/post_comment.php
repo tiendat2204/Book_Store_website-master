@@ -1,5 +1,5 @@
 <?php
-include './model/config.php';
+include '../model/config.php';
 
 session_start();
 
@@ -20,8 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert_message_query->bindParam(':message', $message, PDO::PARAM_STR);
 
     if ($insert_message_query->execute()) {
+        $message = "Bình luận của bạn đã được gửi thành công!";
+        $_SESSION['messages'][] = $message;
         // Tin nhắn đã được lưu thành công, bạn có thể thực hiện các xử lý bổ sung ở đây nếu cần.
-        header("Location: product_detail.php?product_id=$product_id&success=1");
+        header("Location: ../product_detail.php?product_id=$product_id&success=1");
+
         exit();
     } else {
         // Xử lý lỗi nếu có lỗi khi lưu tin nhắn

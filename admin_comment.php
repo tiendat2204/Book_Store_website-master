@@ -4,6 +4,7 @@ include './model/config.php';
 session_start();
 
 $admin_id = $_SESSION['admin_id'];
+$message = [];
 
 if (!isset($admin_id)) {
     header('location:login.php');
@@ -17,26 +18,29 @@ if (isset($_GET['delete'])) {
         $delete_statement = $pdo->prepare("DELETE FROM `comment` WHERE id = :delete_id");
         $delete_statement->bindParam(':delete_id', $delete_id, PDO::PARAM_INT);
         $delete_statement->execute();
+        $message = 'Xóa comment thành công!';
+
+        $_SESSION['messages'] = $message;
+
         header('location:admin_comment.php');
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Comment</title>
+    <title>Đơn đặt hàng</title>
 
-    <!-- Liên kết đến font awesome CDN -->
+    <!-- Liên kết đến font awesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Liên kết đến tệp CSS tùy chỉnh cho giao diện quản trị -->
+    <!-- Liên kết đến tệp CSS tùy chỉnh của quản trị viên -->
     <link rel="stylesheet" href="css/admin_style.css">
 
 </head>
@@ -48,6 +52,7 @@ if (isset($_GET['delete'])) {
     <section class="comments">
 
 <h1 class="title">Quản lý Comment</h1>
+
 
 <div class="box-container">
     
