@@ -18,11 +18,11 @@ if (isset($_GET['delete'])) {
         $delete_statement = $pdo->prepare("DELETE FROM `comment` WHERE id = :delete_id");
         $delete_statement->bindParam(':delete_id', $delete_id, PDO::PARAM_INT);
         $delete_statement->execute();
-        $message = 'Xóa comment thành công!';
+        $_SESSION['messages'] = array('Xóa comment thành công!');
 
-        $_SESSION['messages'] = $message;
 
         header('location:admin_comment.php');
+        exit();
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
     }

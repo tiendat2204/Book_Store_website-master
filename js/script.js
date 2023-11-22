@@ -145,3 +145,5 @@ function addProductToCart(productId, price) {
   localStorage.setItem('grandTotal', grandTotal);
   localStorage.setItem('totalQuantity', totalQuantity);
 }
+
+

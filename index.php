@@ -66,7 +66,7 @@ function getCommentCount($productId, $pdo)
     <div class="swiper home-slider">
         <div class="swiper-wrapper">
             <div class="item swiper-slide">
-                <img src="images/home4.jpeg" alt="" />
+                <img src="images/stack-vintage-hardcover-books (3).jpg " alt="" />
                 <div class="content">
                     <h3>Đọc sách để thành công.</h3>
                     <p style="color: #000;">
@@ -77,7 +77,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/home1.jpeg" alt="" />
+                <img src="images/creative-arrangement-with-different-books.jpg" alt="" />
                 <div class="content">
                     <h3>Sách là cửa sổ tâm hồn</h3>
                     <p style="color: #000;">
@@ -88,7 +88,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/home2.webp" alt="" />
+                <img src="images/65.jpg" alt="" />
                 <div class="content">
                     <h3>Một quyển sách hay</h3>
                     <p style="color: #000;">
@@ -99,7 +99,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/home3.jpeg" alt="" />
+                <img src="images/beautiful-arrangement-different-books.jpg" alt="" />
                 <div class="content">
                     <h3>Con đường thành công</h3>
                     <p style="color: #000;">

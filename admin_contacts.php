@@ -17,8 +17,10 @@ if (isset($_GET['delete'])) {
         $delete_statement = $pdo->prepare("DELETE FROM `message` WHERE id = :delete_id");
         $delete_statement->bindParam(':delete_id', $delete_id, PDO::PARAM_INT);
         $delete_statement->execute();
-        $message[] = 'Xóa tin nhắn thành công!';
+        $_SESSION['messages'] = array('Xóa tin nhắn thành công!');
 
+        header('location:admin_contacts.php');
+exit();
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
     }

@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 
+
+html {
+    scroll-behavior: smooth;
+}
 :root {
   --purple: #000000;
   --blue: #000000;
@@ -763,11 +767,12 @@ color: #ffffff;
 }
 
 .home .home-slider .item {
+  object-fit: cover;
   position: relative;
 }
 
 .home .home-slider .item img {
-  height: 80vh;
+  height: 75vh;
   object-fit: cover;
   width: 100%;
 }
