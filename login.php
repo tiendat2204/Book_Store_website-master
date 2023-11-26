@@ -150,7 +150,7 @@ if (isset($_SESSION['admin_name']) || isset($_SESSION['user_name'])) {
           <script>
             setTimeout(function(){
                 window.location.href = "' . (isset($_SESSION['admin_name']) ? 'admin_page.php' : 'index.php') . '";
-            }, 2500);
+            }, 2000);
           </script>';
 }
 ?>

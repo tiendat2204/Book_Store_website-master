@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.length > 0) {
                         
                         data.forEach(function (product) {
+                            var originalPrice = product.price;
+                            var discount = product.discount;
+                            var discountedPrice = originalPrice - (originalPrice * discount / 100);
+
                             var productHTML = `
                             <form action="" method="post" class="box">
                             <a href="product_detail.php?product_id=${product.id}">
@@ -40,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
                                 <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
                             </div>
+                            <div class="price-discount">
+                                        ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(discountedPrice)}
+                                    </div>
                             <div class="comment-count">
                             <span class="star-icon"></i></span>
                             Bình luận: 0

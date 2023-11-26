@@ -54,7 +54,7 @@ try {
             if($order["Amount"] == $vnp_Amount) //Kiểm tra số tiền thanh toán của giao dịch: giả sử số tiền kiểm tra là đúng. //$order["Amount"] == $vnp_Amount
             {
                 if ($order["Status"] != NULL && $order["Status"] == 0) {
-                    if ($inputData['vnp_ResponseCode'] == '00' && $inputData['vnp_TransactionStatus'] == '00') {
+                    if ($params['vnp_ResponseCode'] == '00' || $params['vnp_TransactionStatus'] == '00') {
                         $Status = 1; // Trạng thái thanh toán thành công
                     } else {
                         $Status = 2; // Trạng thái thanh toán thất bại / lỗi

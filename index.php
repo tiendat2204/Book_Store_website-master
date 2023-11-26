@@ -40,7 +40,6 @@ function getCommentCount($productId, $pdo)
     <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="css/loader.css">
 
     <!-- swiper css file cnd link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -66,7 +65,7 @@ function getCommentCount($productId, $pdo)
     <div class="swiper home-slider">
         <div class="swiper-wrapper">
             <div class="item swiper-slide">
-                <img src="images/stack-vintage-hardcover-books (3).jpg " alt="" />
+                <img src="images/stack-vintage-hardcover-books-(3)_optimized.jpg " alt="" />
                 <div class="content">
                     <h3>Đọc sách để thành công.</h3>
                     <p style="color: #000;">
@@ -77,7 +76,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/creative-arrangement-with-different-books.jpg" alt="" />
+                <img src="images/creative-arrangement-with-different-books_optimized.jpg" alt="" />
                 <div class="content">
                     <h3>Sách là cửa sổ tâm hồn</h3>
                     <p style="color: #000;">
@@ -88,7 +87,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/65.jpg" alt="" />
+                <img src="images/65_optimized.jpg" alt="" />
                 <div class="content">
                     <h3>Một quyển sách hay</h3>
                     <p style="color: #000;">
@@ -99,7 +98,7 @@ function getCommentCount($productId, $pdo)
             </div>
 
             <div class="item swiper-slide">
-                <img src="images/beautiful-arrangement-different-books.jpg" alt="" />
+                <img src="images/beautiful-arrangement-different-books_optimized.jpg" alt="" />
                 <div class="content">
                     <h3>Con đường thành công</h3>
                     <p style="color: #000;">
@@ -138,6 +137,15 @@ function getCommentCount($productId, $pdo)
                         <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
                         <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
                     </div>
+                    <div class="price-discount">
+    <?php
+    $originalPrice = $fetch_products['price'];
+    $discount = $fetch_products['discount'];
+    $discountedPrice = $originalPrice - ($originalPrice * $discount / 100);
+    echo number_format($discountedPrice, 0, ',', '.') . 'đ';
+    ?>
+</div>
+
 
                     <div class="comment-count">
                         <span class="star-icon"></i></span>

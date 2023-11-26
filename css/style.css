@@ -496,8 +496,8 @@ color: #ffffff;
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background: url(../images/hom1.jpg) no-repeat;
-  background-size: cover;
+  background: url(../images/cup-tea-cookies_optimized.jpg) no-repeat;
+  background-size:  cover;
   background-position: center;
   object-fit: cover;
   width: 100%;
@@ -648,11 +648,11 @@ color: #ffffff;
 }
 
 .header .header-2 .flex {
-  padding: 2rem;
+  padding: 1.4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
+  justify-content: space-around;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
 }
@@ -846,12 +846,20 @@ color: #ffffff;
   top: 1rem;
   left: 1rem;
   border-radius: 0.5rem;
-  padding: 1rem;
-  font-size: 2.5rem;
+  padding: 4px;
+  font-size: 1.5rem;
+  text-decoration: line-through;
+  color: var(--light-color);
+  background-color: var(--light-white);;
   color: var(--white);
   background-color: var(--red);
 }
+.price-discount {
+  color: #e44d26; /* Màu đỏ thường được sử dụng cho giảm giá */
+  font-size: 18px; /* Kích thước chữ */
+  font-weight: 400; /* Chữ đậm để nổi bật */
 
+}
 .about {
   background-color: #333;
 }
@@ -1176,6 +1184,11 @@ color: #ffffff;
   margin: 0 auto;
   text-align: center;
   padding-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .display-order p {
@@ -1193,13 +1206,14 @@ color: #ffffff;
   color: var(--red);
 }
 
-.display-order .grand-total {
+ .grand-total {
+  text-align: center;
   margin-top: 2rem;
   font-size: 2.5rem;
   color: var(--light-color);
 }
 
-.display-order .grand-total span {
+.grand-total span {
   color: var(--red);
 }
 
@@ -1459,6 +1473,23 @@ color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+.product-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 35%;
+  margin: 0px 10px;
+  
+}
+
+.product-image {
+  max-width: 100px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
 
 .img_detail {
   display: block;
@@ -1655,4 +1686,260 @@ color: #ffffff;
         
       }
 
+/* order */
+.box-container-cancel {
+  display: flex;
+justify-content: space-around;
+  align-items: center;
+}
+#canceled-orders-list {
+  list-style: none;
+  padding: 0;
+  display: none; /* Ẩn danh sách ban đầu */
+}
+.canceled-order-details p {
+  margin: 5px 0; /* Tạo khoảng cách giữa các thẻ p */
+  font-size: 12px;
+}
+.canceled-order-product a {
+  display: flex;
+justify-content: center;
+  margin-top: 5px;
+ color: #000;
+align-items: center;
+}
+.cancel-link {
+  color: #f00;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #fff;
+  border: 1px solid #f00;
+  padding: 10px 20px;
+  cursor: pointer;
 
+  &:hover {
+    color: #fff;
+    transition: all 0.5s;
+    background-color: #f00;
+  }
+}
+
+.canceled-orders {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.canceled-order-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.canceled-order-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.canceled-order-details img {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+#toggle-canceled-orders {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.box-container {
+  margin-top: 20px;
+}
+
+.canceled-orders-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.canceled-order-item {
+  margin: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.canceled-order-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.canceled-order-date,
+.canceled-order-total {
+  font-weight: bold;
+}
+
+.canceled-order-details {
+  margin-bottom: 0;
+}
+/* Order Form Styles */
+.order-form {
+  width: 80%;
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.order-row-total,
+.order-row-status {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.order-total, .order-status {
+  width: 150px;
+  font-size: 15px;
+  text-align: right;
+
+}
+
+.order-value-total, .order-value-status {
+  flex-grow: 1;
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+
+.in4_user {
+  font-family: sans-serif;
+margin-top: 10px;
+padding: 10px 10px;
+  
+}
+
+.order-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.order-day, .order-name, .order-phone, .order-email, .order-address, .order-payment {
+  width: 150px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.order-value-day, .order-value-name, .order-value-phone, .order-value-email, .order-value-address, .order-value-payment {
+  flex-grow: 2;
+  margin-left: 10px;
+  font-family: sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.order-day > div, .order-name > div, .order-phone > div, .order-email > div, .order-address > div, .order-payment > div {
+  display: inline-block;
+  margin-right: 10px;
+}
+.order-row-name,
+.order-row-phone,
+.order-row-email,
+.order-row-address,
+.order-row-day,
+.order-row-payment{
+  display: flex;
+  
+}
+
+
+/* Order Details Title Styles */
+.order-details-title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Order Row Styles */
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.order-row > div {
+  width: 20%;
+  padding: 10px;
+}
+
+.order-row-image {
+  width: 20%;
+}
+
+.order-row-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Order Details Styles */
+.order-details {
+  display: flex;
+justify-content: space-around;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* Order Value Image Styles */
+.order-value-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.order-value-product{
+margin: 10px 0px;
+font-weight: 400;
+font-size: 14px;
+}
+.order-value-quantity,
+.order-value-price{
+  font-weight: 400;
+font-size: 14px;
+}
+
+.order-value-image img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Empty Styles */
+.empty {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* Specific Styles */
+.in4_user {
+  border-top: 2px solid #ccc;
+  padding-top: 10px;
+}
+
+.in4_product {
+  padding-top: 10px;
+}

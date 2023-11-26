@@ -4,7 +4,7 @@ include './controller/cartCURD.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -88,7 +88,7 @@ include './controller/cartCURD.php';
                                                         <i class="fas fa-minus"></i>
                                                     </button>
                                                     <div class="form-outline flex-grow-1">
-                                                        <input id="form1" min="0" name="quantity" value="<?= $row['quantity'] ?>" type="number" class="form-control form-control-lg" data-cart-id="<?= $row['id'] ?>" >
+                                                    <input id="form1" min="1" name="quantity" value="<?= abs($row['quantity']) ?>" type="number" class="form-control form-control-lg" data-cart-id="<?= $row['id'] ?>" oninput="validateQuantity(this)">
                                                     </div>
                                                     <button class="btn btn-primary btn-lg px-4 ms-2" onclick="changeQuantity('increase', <?= $row['id'] ?>)">
                                                         <i class="fas fa-plus"></i>
@@ -167,5 +167,6 @@ include './controller/cartCURD.php';
     </section>
     <?php include 'footer.php'; ?>
     <script src="js/script.js"></script>
+ 
 </body>
 </html>

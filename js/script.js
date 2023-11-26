@@ -1,33 +1,29 @@
-
-// Toggle the navigation bar's active class when the menu button is clicked
-document.querySelector("#menu-btn").addEventListener("click", () => {
-  navBar.classList.toggle("active");
-  userBox.classList.remove("active");
-});
-
 // Toggle the submenu's show class when a submenu link is clicked
 function toggleSubmenu(event) {
   event.preventDefault();
-  const submenu = document.getElementById("submenu");
+  document.getElementById("submenu");
   submenu.classList.toggle("show");
 }
 
-// When the DOM is loaded, add an event listener to the user icon
 document.addEventListener("DOMContentLoaded", function () {
   const userIcon = document.getElementById("user-icon");
   const userBox = document.querySelector(".user-box");
   if (userIcon) {
     let isUserBoxVisible = false;
     userIcon.addEventListener("click", function () {
-      if (isUserBoxVisible) {
-        userBox.style.display = "none";
-        isUserBoxVisible = false;
-      } else {
-        userBox.style.display = "block";
-        isUserBoxVisible = true;
-      }
+      userBox.style.display = isUserBoxVisible ? "none" : "block";
+      isUserBoxVisible = !isUserBoxVisible;
     });
   }
+
+  const menuBtn = document.querySelector("#menu-btn");
+  const navBar = document.querySelector(".navbar");
+
+  // Toggle the navigation bar's active class when the menu button is clicked
+  menuBtn.addEventListener("click", () => {
+    navBar.classList.toggle("active");
+    userBox.style.display = "none"; // Hide user box when menu is clicked
+  });
 });
 
 // Initialize the swiper slider
@@ -73,14 +69,11 @@ function changeQuantity(action, cartId) {
   updateTotalPrice(cartId, currentQuantity);
 }
 
-
 function updateTotalPrice(cartId, quantity) {
   // Calculate the total price of the product
   const total = quantity * parseFloat($(`[data-cart-id="${cartId}"] .price-cart`).text());
 
-
   $(`[data-cart-id="${cartId}"] #grand-total`).text(formatCurrency(total));
-
 
   $.ajax({
     url: "../controller/update_cart.php",
@@ -88,14 +81,12 @@ function updateTotalPrice(cartId, quantity) {
     data: { cart_id: cartId, quantity: quantity },
     success: function (response) {
       try {
-     
         const data = JSON.parse(response);
         if (data) {
           $('#grand-total-all-prod').text(formatCurrency(data['#grand-total-all-prod']));
           $('#grand-total-all').text(formatCurrency(data['#grand-total-all-prod']));
           $('#total-quantity').text(data.total_quantity);
 
- 
           localStorage.setItem('grandTotal', data['#grand-total-all-prod']);
           localStorage.setItem('totalQuantity', data.total_quantity);
         } else {
@@ -120,10 +111,10 @@ $(document).ready(function () {
   }
 });
 
-
 function formatCurrency(number) {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
 }
+
 function addProductToCart(productId, price) {
   // Get the relevant DOM elements
   const totalQuantityElement = $('#total-quantity');
@@ -146,4 +137,13 @@ function addProductToCart(productId, price) {
   localStorage.setItem('totalQuantity', totalQuantity);
 }
 
+// cart_input
+function validateQuantity(input) {
+  // Get the current value of the input
+  var currentValue = parseInt(input.value);
 
+  // If the value is less than 1, set the value to 1
+  if (currentValue < 1 || isNaN(currentValue)) {
+    input.value = 1;
+  }
+}

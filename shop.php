@@ -110,7 +110,14 @@ function getCommentCount($productId, $pdo)
                         <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
                         <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
                     </div>
-
+                    <div class="price-discount">
+    <?php
+    $originalPrice = $fetch_products['price'];
+    $discount = $fetch_products['discount'];
+    $discountedPrice = $originalPrice - ($originalPrice * $discount / 100);
+    echo number_format($discountedPrice, 0, ',', '.') . 'đ';
+    ?>
+</div>
                     <div class="comment-count">
                         <span class="star-icon"></i></span>
                         Bình luận: <?php echo $commentCount; ?>

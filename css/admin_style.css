@@ -427,7 +427,7 @@ section {
 
 .orders .box-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 30rem);
+  grid-template-columns: repeat(auto-fit, 40rem);
   justify-content: center;
   gap: 1.5rem;
   max-width: 1200px;
@@ -447,6 +447,18 @@ section {
   padding-bottom: 1rem;
   font-size: 2rem;
   color: var(--light-color);
+}
+.orders .box-container .image-order {
+  width: 40%;
+  height: auto;
+  border-radius: 5px;
+  margin: 5px ;
+ 
+}
+.image-prd-order{
+  display: flex;
+  justify-content: center ;
+  flex-wrap: wrap;
 }
 
 .orders .box-container .box p span {

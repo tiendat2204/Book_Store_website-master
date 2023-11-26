@@ -112,7 +112,7 @@ if ($product_id) {
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <h5 class="fw-bolder"><?php echo $related_product['name']; ?></h5>
-                                        <?php echo "$" . $related_product['price']; ?>
+                                     <h4 style="font-weight: 400;">   <?php echo number_format($related_product['price'], 0, '', '.') . ' VND'; ?></h4>
                                         <div class="radio-input">
                                             <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
                                             <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
