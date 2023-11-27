@@ -1,7 +1,7 @@
 <?php
 include './model/config.php';
-
 session_start();
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
 if (isset($_POST['send'])) {
     // Check if a user is logged in

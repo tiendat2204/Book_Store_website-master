@@ -48,6 +48,8 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
                 <a href="search_page.php" class="fas fa-search"></a>
+               <a href="apibook.php" class="fa-brands fa-google "></a>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <div id="user-icon" class="fas fa-user"></div>
                     <div class="user-box">
@@ -73,9 +75,5 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
 </header>
 <script>
     // Toggle the navigation bar's active class when the menu button is clicked
-document.querySelector("#menu-btn").addEventListener("click", () => {
-  navBar.classList.toggle("active");
-  userBox.classList.remove("active");
-});
 
 </script>

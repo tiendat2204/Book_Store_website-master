@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
 
-
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 :root {
   --purple: #000000;
@@ -26,7 +25,6 @@ html {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  
 }
 * {
   font-family: "Rubik", sans-serif;
@@ -141,7 +139,7 @@ section {
   border-radius: 0.5rem;
   text-transform: capitalize;
 }
-.option-btn{
+.option-btn {
   display: inline-block;
   margin-top: 1rem;
   padding: 1rem 3rem;
@@ -150,10 +148,10 @@ section {
   border-radius: 0.5rem;
   text-transform: capitalize;
   color: #000;
- background-color: #f39c12;
- margin-left: 5px;
+  background-color: #f39c12;
+  margin-left: 5px;
 }
-.option-btn:hover{
+.option-btn:hover {
   transition: all 0.9s;
   background-color: hsl(261deg 80% 48%);
   color: hsl(0, 0%, 100%);
@@ -225,9 +223,7 @@ section {
   }
 }
 
-
 .btn1:hover,
-
 .delete-btn:hover {
   background-color: var(--black);
 }
@@ -246,7 +242,7 @@ section {
   border-radius: 0.4em;
   box-shadow: 0.1em 0.1em;
 }
-.read-more a{
+.read-more a {
   color: #000;
 }
 
@@ -259,7 +255,6 @@ section {
   transform: translate(0.05em, 0.05em);
   box-shadow: 0.05em 0.05em;
 }
-
 
 .delete-btn {
   background-color: var(--red);
@@ -401,11 +396,11 @@ section {
     transform: translateY(0);
   }
 }
-.text-container a{
+.text-container a {
   color: #ffffff;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-.text-container a:hover{
+.text-container a:hover {
   color: #000;
 }
 .contact-us {
@@ -417,9 +412,8 @@ section {
   border-radius: 0.3em;
   font-size: 12px;
 }
-.contact-us a{
-color: #ffffff;
-
+.contact-us a {
+  color: #ffffff;
 }
 
 .contact-us span {
@@ -442,14 +436,11 @@ color: #ffffff;
   transition: all 0.5s;
   transform: translate(0, 0.4em);
   box-shadow: 0 0 0 0 #fff;
-  
 }
 
 .contact-us span:not(hover) {
   transition: all 1s;
 }
-
-
 
 .heading {
   min-height: 30vh;
@@ -497,7 +488,7 @@ color: #ffffff;
   justify-content: center;
   padding: 2rem;
   background: url(../images/cup-tea-cookies_optimized.jpg) no-repeat;
-  background-size:  cover;
+  background-size: cover;
   background-position: center;
   object-fit: cover;
   width: 100%;
@@ -513,7 +504,6 @@ color: #ffffff;
   background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
-
 
 .form-container form h3 {
   font-size: 3rem;
@@ -547,7 +537,7 @@ color: #ffffff;
   text-decoration: underline;
 }
 /* form-container-rsp */
-.container-rsp{
+.container-rsp {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -577,7 +567,7 @@ color: #ffffff;
   outline: none;
   background-color: #f8fafc;
   color: #0d0c22;
-  transition: .5s ease;
+  transition: 0.5s ease;
   margin-bottom: 10px;
 }
 .btn1-rsp {
@@ -594,7 +584,8 @@ color: #ffffff;
   color: #94a3b8;
 }
 
-.box-rsp:focus, box-rsp:hover {
+.box-rsp:focus,
+box-rsp:hover {
   outline: none;
   border-color: rgba(129, 140, 248);
   background-color: #fff;
@@ -612,7 +603,7 @@ color: #ffffff;
 /* Additional styles for responsiveness */
 @media only screen and (max-width: 600px) {
   .form-container-rsp {
-      width: 90%;
+    width: 90%;
   }
 }
 /* Home header */
@@ -850,7 +841,7 @@ color: #ffffff;
   font-size: 1.5rem;
   text-decoration: line-through;
   color: var(--light-color);
-  background-color: var(--light-white);;
+  background-color: var(--light-white);
   color: var(--white);
   background-color: var(--red);
 }
@@ -858,7 +849,6 @@ color: #ffffff;
   color: #e44d26; /* Màu đỏ thường được sử dụng cho giảm giá */
   font-size: 18px; /* Kích thước chữ */
   font-weight: 400; /* Chữ đậm để nổi bật */
-
 }
 .about {
   background-color: #333;
@@ -1206,7 +1196,7 @@ color: #ffffff;
   color: var(--red);
 }
 
- .grand-total {
+.grand-total {
   text-align: center;
   margin-top: 2rem;
   font-size: 2.5rem;
@@ -1482,7 +1472,6 @@ color: #ffffff;
   padding: 10px;
   width: 35%;
   margin: 0px 10px;
-  
 }
 
 .product-image {
@@ -1616,7 +1605,7 @@ color: #ffffff;
   width: 100%;
   height: 60vh;
 }
-.form-control{
+.form-control {
   padding: 5x 5px;
 }
 .comment-count {
@@ -1630,66 +1619,64 @@ color: #ffffff;
 
 .comment-count:before {
   content: "\f075";
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   margin-right: 5px;
 }
 /* cart */
-.col-lg-4 div{
+.col-lg-4 div {
   position: relative;
-      }
-      #total-price {
-          position: absolute;
-          bottom: 0;
-          right: 45px;
-      }
-     #detele-btn{
-      position: absolute;
-         top: 0;
-          right: -60px;
-          padding: 8px ;
-     }
-      .product-name {
-          font-size: 1.5rem;
-          font-weight: bold;
-      }
-  
-      .detail-label {
-          font-weight: bold;
-          color: #6c757d; /* Bootstrap's secondary text color */
-      }
-  
-      .detail-value {
-          font-size: 1.2rem;
-          color: #495057; /* Bootstrap's body text color */
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+#total-price {
+  position: absolute;
+  bottom: 0;
+  right: 45px;
+}
+#detele-btn {
+  position: absolute;
+  top: 0;
+  right: -60px;
+  padding: 8px;
+}
+.product-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #6c757d; /* Bootstrap's secondary text color */
+}
+
+.detail-value {
+  font-size: 1.2rem;
+  color: #495057; /* Bootstrap's body text color */
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-weight: 500;
   font-size: 14px;
-      }
-  
-      .quantity-label {
-          font-weight: bold;
-          margin-right: 10px;
-      }
-  
+}
 
-      .price-cart{
-          color: #ff0000;
-          font-size: 16px;
-          margin-left: 10px;
-          margin-bottom: 10px;
-      }
-      .price-flex{
-          display: flex;
-          justify-content: start;
-          align-items: center;
-          text-align: center;
-        
-      }
+.quantity-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.price-cart {
+  color: #ff0000;
+  font-size: 16px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.price-flex {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+}
 
 /* order */
 .box-container-cancel {
   display: flex;
-justify-content: space-around;
+  justify-content: space-around;
   align-items: center;
 }
 #canceled-orders-list {
@@ -1703,10 +1690,10 @@ justify-content: space-around;
 }
 .canceled-order-product a {
   display: flex;
-justify-content: center;
+  justify-content: center;
   margin-top: 5px;
- color: #000;
-align-items: center;
+  color: #000;
+  align-items: center;
 }
 .cancel-link {
   color: #f00;
@@ -1802,26 +1789,25 @@ align-items: center;
   margin-bottom: 10px;
 }
 
-.order-total, .order-status {
+.order-total,
+.order-status {
   width: 150px;
   font-size: 15px;
   text-align: right;
-
 }
 
-.order-value-total, .order-value-status {
+.order-value-total,
+.order-value-status {
   flex-grow: 1;
   margin-left: 10px;
   font-size: 13px;
   font-weight: 400;
 }
 
-
 .in4_user {
   font-family: sans-serif;
-margin-top: 10px;
-padding: 10px 10px;
-  
+  margin-top: 10px;
+  padding: 10px 10px;
 }
 
 .order-row {
@@ -1829,13 +1815,23 @@ padding: 10px 10px;
   margin-bottom: 10px;
 }
 
-.order-day, .order-name, .order-phone, .order-email, .order-address, .order-payment {
+.order-day,
+.order-name,
+.order-phone,
+.order-email,
+.order-address,
+.order-payment {
   width: 150px;
   text-align: left;
   font-size: 15px;
 }
 
-.order-value-day, .order-value-name, .order-value-phone, .order-value-email, .order-value-address, .order-value-payment {
+.order-value-day,
+.order-value-name,
+.order-value-phone,
+.order-value-email,
+.order-value-address,
+.order-value-payment {
   flex-grow: 2;
   margin-left: 10px;
   font-family: sans-serif;
@@ -1843,7 +1839,12 @@ padding: 10px 10px;
   font-weight: 600;
   margin-bottom: 10px;
 }
-.order-day > div, .order-name > div, .order-phone > div, .order-email > div, .order-address > div, .order-payment > div {
+.order-day > div,
+.order-name > div,
+.order-phone > div,
+.order-email > div,
+.order-address > div,
+.order-payment > div {
   display: inline-block;
   margin-right: 10px;
 }
@@ -1852,11 +1853,9 @@ padding: 10px 10px;
 .order-row-email,
 .order-row-address,
 .order-row-day,
-.order-row-payment{
+.order-row-payment {
   display: flex;
-  
 }
-
 
 /* Order Details Title Styles */
 .order-details-title {
@@ -1895,7 +1894,7 @@ padding: 10px 10px;
 /* Order Details Styles */
 .order-details {
   display: flex;
-justify-content: space-around;
+  justify-content: space-around;
   padding: 10px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
@@ -1910,15 +1909,15 @@ justify-content: space-around;
   align-items: center;
   margin-bottom: 10px;
 }
-.order-value-product{
-margin: 10px 0px;
-font-weight: 400;
-font-size: 14px;
+.order-value-product {
+  margin: 10px 0px;
+  font-weight: 400;
+  font-size: 14px;
 }
 .order-value-quantity,
-.order-value-price{
+.order-value-price {
   font-weight: 400;
-font-size: 14px;
+  font-size: 14px;
 }
 
 .order-value-image img {
@@ -1942,4 +1941,79 @@ font-size: 14px;
 
 .in4_product {
   padding-top: 10px;
+}
+/* api */
+.searchBox {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.searchBox input {
+  padding: 10px;
+  width: 60%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.searchBox .search-btn-api {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchBox .search-btn-api:hover {
+  background-color: #45a049;
+}
+
+.book-results {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.book-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 65rem;
+}
+
+.book-title {
+  color: #333;
+  font-weight: 400;
+}
+
+.book-cover {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.book-authors {
+  color: #000000;
+  font-size: 13px;
+  padding: 7px 0px;
+}
+
+.book-description {
+  color: #000000;
+  font-size: 13px;
+  overflow: scroll;
+  height: 40%;
+}
+
+.no-results {
+  text-align: center;
+  color: #666;
+  margin-top: 30px;
 }

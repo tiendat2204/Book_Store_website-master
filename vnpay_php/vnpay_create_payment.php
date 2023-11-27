@@ -75,7 +75,6 @@ $returnData = array('code' => '00'
     , 'message' => 'success'
     , 'data' => $vnp_Url);
     if (!headers_sent()) {
-        $_SESSION['messages'] = array('Đơn hàng đã được đặt thành công!');
         header('Location: ' . $vnp_Url);
         die();
     } else {

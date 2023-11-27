@@ -4,7 +4,7 @@ require_once './model/config.php';
 
 session_start();
 
-
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,6 @@ session_start();
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
 

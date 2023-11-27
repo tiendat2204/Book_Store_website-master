@@ -46,7 +46,6 @@ if (isset($_POST['order_btn'])) {
     if ($cart_total == 0) {
         $message[] = 'giỏ hàng trống';
     } else {
-      
         // Insert into order_detail table
         $insert_order_detail_query = $pdo->prepare("INSERT INTO `order_detail`(order_id, product_id, quantity, subtotal) VALUES(:order_id, :product_id, :quantity, :subtotal)");
 
@@ -59,7 +58,6 @@ if (isset($_POST['order_btn'])) {
             $product_query->bindParam(':product_name', $product_name, PDO::PARAM_STR);
             $product_query->execute();
             $product_result = $product_query->fetch(PDO::FETCH_ASSOC);
-
             $product_id = $product_result['id'];
             $product_price = $product_result['price'];
             $sub_total = $quantity * $product_price;
@@ -78,11 +76,12 @@ if (isset($_POST['order_btn'])) {
         $delete_cart_query->execute();
         
         $message[] = 'Đơn hàng đã được đặt thành công!';
-        if ($method == 'vnpay') {
-            include './vnpay_php/vnpay_create_payment.php';
-            exit();
-        }
+     
 
+    }
+    if ($method == 'vnpay') {
+        include './vnpay_php/vnpay_create_payment.php';
+        exit();
     }
     $_SESSION['messages'] = $message;
 }

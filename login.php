@@ -61,11 +61,43 @@ if (isset($_POST['submit'])) {
 
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+<style>
+    /* Điều chỉnh kích thước và vị trí của nút đăng nhập Google */
+    .g-signin2 {
+            margin-top: 20px;
+            width: 20%;
+            align-self: center;
+        }
+
+        .g-signin2 > div {
+            width: 215%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .g-signin2 > div:hover {
+            background-color: #f1f1f1;
+        }
+
+        .g-signin2 > div > span {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+</style>
 
 <body>
 
@@ -73,7 +105,7 @@ if (isset($_POST['submit'])) {
 if (isset($_SESSION['login_message'])) {
     $loginMessage = $_SESSION['login_message'];
 
-    // Hiển thị thông báo từ $_SESSION
+
     foreach ($loginMessage as $msg) {
         echo '
         <div class="message ' . $msg['type'] . '">
@@ -83,12 +115,12 @@ if (isset($_SESSION['login_message'])) {
         ';
     }
 
-    // Xóa thông báo sau khi đã hiển thị
+
     unset($_SESSION['login_message']);
   
 }
 
-// Hiển thị thông báo từ forgot_password.php
+
 if (isset($_SESSION['forgot_password_message'])) {
     $forgotPasswordMessage = $_SESSION['forgot_password_message'];
 
@@ -113,7 +145,14 @@ if (isset($_SESSION['forgot_password_message'])) {
     <h3>Đăng nhập ngay</h3>
     <input type="email" name="email" placeholder="Email" required class="box">
     <input type="password" name="password" placeholder="Mật khẩu" required class="box">
+    <div class="g-signin2" data-onsuccess="onGoogleSignIn">
+                <div>
+                    <i class="fab fa-google"></i>
+                    <span>Đăng nhập bằng Google</span>
+                </div>
+            </div>
     <input type="submit" name="submit" value="Đăng nhập ngay" class="btn1">
+  
     <p>bạn chưa có tài khoản? <a href="register.php">Đăng kí ngay</a></p>
     <p><a href="#" onclick="showForgotPasswordForm()">Quên mật khẩu?</a></p>
 </form>
@@ -155,4 +194,5 @@ if (isset($_SESSION['admin_name']) || isset($_SESSION['user_name'])) {
 }
 ?>
 </body>
+
 </html>
