@@ -1,36 +1,8 @@
 <?php
 
 include './model/config.php';
+include './controller/c_register.php';
 
-if (isset($_POST['submit'])) {
-    $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
-    $password = md5(htmlspecialchars($_POST['password']));
-    $cpassword = md5(htmlspecialchars($_POST['cpassword']));
-    $user_type = htmlspecialchars($_POST['user_type']);
-
-    $select_users = $pdo->prepare("SELECT * FROM `users` WHERE email = :email AND password = :password");
-    $select_users->bindParam(':email', $email, PDO::PARAM_STR);
-    $select_users->bindParam(':password', $password, PDO::PARAM_STR);
-    $select_users->execute();
-
-    if ($select_users->rowCount() > 0) {
-        $message[] = 'Người dùng đã tồn tại!';
-    } else {
-        if ($password != $cpassword) {
-            $message[] = 'Xác nhận mật khẩu không khớp';
-        } else {
-            $insert_user = $pdo->prepare("INSERT INTO `users` (name, email, password, user_type) VALUES(:name, :email, :password, :user_type)");
-            $insert_user->bindParam(':name', $name, PDO::PARAM_STR);
-            $insert_user->bindParam(':email', $email, PDO::PARAM_STR);
-            $insert_user->bindParam(':password', $cpassword, PDO::PARAM_STR);
-            $insert_user->bindParam(':user_type', $user_type, PDO::PARAM_STR);
-            $insert_user->execute();
-
-            $message[] = 'Đăng ký thành công!';
-        }
-    }
-}
 ?>
 
 
@@ -44,7 +16,8 @@ if (isset($_POST['submit'])) {
 
     <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="207747938873-pm2gin00oc1tkurs9k67d5u31f49vnab.apps.googleusercontent.com">
     <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
 
@@ -77,6 +50,7 @@ if (isset($_POST['submit'])) {
         <option value="user">Người dùng</option>
         <option value="admin">Quản trị viên</option>
     </select>
+  
     <input type="submit" name="submit" value="Đăng ký ngay" class="btn1">
     <p>Bạn chưa có tài khoản? <a href="login.php">Đăng nhập ngay</a></p>
 </form>

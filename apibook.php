@@ -23,6 +23,10 @@ $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
     <?php
     include 'header.php';
     ?>
+    <div class="heading">
+    <h3>Tìm kiếm với google</h3>
+    <p> <a href="index.php">trang chủ</a> / tìm kiếm với google </p>
+</div>
     <div class="container" style="margin: 110px;">
         <div class="searchBox">
             <h1>Tìm kiếm thứ gì đó</h1>

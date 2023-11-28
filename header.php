@@ -48,7 +48,12 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
                 <a href="search_page.php" class="fas fa-search"></a>
-               <a href="apibook.php" class="fa-brands fa-google "></a>
+                <div class="container-tooltip">
+                <span class="hover-me-tooltip"><a href="apibook.php" class="fa-brands fa-google"></a></span>
+                <div class="tooltip">
+                         <p>Tìm kiếm với google <i class="fa-brands fa-google"></i></p>
+               </div>
+                </div>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <div id="user-icon" class="fas fa-user"></div>
