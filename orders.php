@@ -10,27 +10,65 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
-    // Get information from URL
-    $vnp_Amount = $_GET['vnp_Amount'];
-    $vnp_ResponseCode = $_GET['vnp_ResponseCode'];
-    $vnp_TxnRef = $_GET['vnp_TxnRef'];
 
-    // Check order status
-    if ($vnp_ResponseCode == '00') {
-        // Order successful
-    $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán thành công !");
-    } else {
-        // Order unsuccessful
-        $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán không thành công !");
+    // Check if it is a VNPAY payment
+    if (isset($_GET['vnp_ResponseCode'])) {
+        $vnp_Amount = $_GET['vnp_Amount'];
+        $vnp_ResponseCode = $_GET['vnp_ResponseCode'];
+        $vnp_TxnRef = $_GET['vnp_TxnRef'];
+
+        // Check order status for VNPAY
+        if ($vnp_ResponseCode == '00') {
+            // Order successful
+            $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán thành công !");
+        } else {
+            // Order unsuccessful
+            $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán không thành công !");
+            
+            // Set payment status to 'Chưa thanh toán'
+            $updateStatusQuery = $pdo->prepare("UPDATE orders SET payment_status = 'Chưa thanh toán' WHERE order_code = :order_code");
+            $updateStatusQuery->bindParam(':order_code', $vnp_TxnRef, PDO::PARAM_STR);
+            $updateStatusQuery->execute();
+            
+        }
+
+        unset($_SESSION['order_status']);
     }
 
-    // Remove order status from session after checking
-    unset($_SESSION['order_status']);
-} else {
+    // Check if it is a MoMo payment
+    elseif (isset($_GET['transId'])) {
+        $partnerCode = $_GET['partnerCode'];
+        $orderId = $_GET['orderId'];
+        $requestId = $_GET['requestId'];
+        $amount = $_GET['amount'];
+        $orderInfo = $_GET['orderInfo'];
+        $resultCode = $_GET['resultCode'];
+        $message = $_GET['message'];
 
+        // Check order status for MoMo
+        if ($resultCode == '0') {
+            // Order successful
+            $_SESSION['messages'] = array("Đơn hàng có mã $orderId đã thanh toán thành công !");
+        } else {
+            // Order unsuccessful
+            $_SESSION['messages'] = array("Đơn hàng có mã $orderId đã thanh toán không thành công !");
+            
+            // Set payment status to 'Chưa thanh toán'
+            $updateStatusQuery = $pdo->prepare("UPDATE orders SET payment_status = 'Chưa thanh toán' WHERE order_code = :order_code");
+            $updateStatusQuery->bindParam(':order_code', $orderId, PDO::PARAM_STR);
+            $updateStatusQuery->execute();
+        }
+
+        unset($_SESSION['order_status']);
+    }
+    
+} else {
+    // Handle other cases or actions as needed
 }
 
+// Đoạn mã HTML và JavaScript ở đây...
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
             ?>
             <section class="canceled-orders">
                 <button id="toggle-canceled-orders">Hiển Thị Đơn Hàng Đã Hủy</button>
-                <div class="box-container-cancel" style="display: none;">
+                <div class="box-container-cancel" >
                     <ul class="canceled-orders-list" id="canceled-orders-list">
                         <?php
                         $canceled_order_query = $pdo->prepare("SELECT orders.*, users.name AS user_name, users.phone AS user_phone, users.email AS user_email
@@ -214,17 +252,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
     <?php include 'footer.php'; ?>
 
     <script src="js/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var canceledOrdersHeading = document.getElementById('canceled-orders-heading');
-            var canceledOrdersList = document.getElementById('canceled-orders-list');
-            var toggleCanceledOrdersButton = document.getElementById('toggle-canceled-orders');
 
-            toggleCanceledOrdersButton.addEventListener('click', function () {
-                canceledOrdersList.style.display = canceledOrdersList.style.display === 'none' ? 'flex' : 'none';
-                canceledOrdersHeading.innerText = canceledOrdersList.style.display === 'none' ? 'Đơn Hàng Đã Hủy' : 'Đã Ẩn Đơn Hàng Đã Hủy';
-            });
-        });
-    </script>
 </body>
 </html>

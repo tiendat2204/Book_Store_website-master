@@ -67,6 +67,7 @@ if (isset($_GET['delete'])) {
     $delete_product_query->execute();
     $message[] = 'Xóa sản phẩm thành công!';
     $_SESSION['messages'] = $message;
+    
 }
 
 if (isset($_POST['update_product'])) {

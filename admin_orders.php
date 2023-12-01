@@ -60,7 +60,9 @@ try {
                         <option value="Đợi xác nhận">Đợi xác nhận</option>
                         <option value="Chờ lấy hàng">Chờ lấy hàng</option>
                         <option value="Chờ giao hàng">Chờ giao hàng</option>
+                        <option value="Chưa thanh toán">Chưa thanh toán</option>
                         <option value="Đã giao hàng">Đã giao hàng</option>
+
                     </select>
                     <input type="submit" value="Cập nhật" name="update_order" class="option-btn">
                     <a href="admin_orders.php?delete=<?= $fetch_orders['id'] ?>" onclick="return confirm('Xóa đơn hàng này?');" class="delete-btn">Xóa</a>

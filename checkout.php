@@ -81,7 +81,7 @@ include './controller/thanhtoan.php';
                     <option value="thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
                     <option value="thẻ tín dụng">Thẻ tín dụng</option>
                     <option value="paypal">Zalopay</option>
-                    <option value="paytm">MoMo</option>
+                    <option value="MoMo">MoMo</option>
                     <option value="vnpay">VNpay</option>
 
                 </select>

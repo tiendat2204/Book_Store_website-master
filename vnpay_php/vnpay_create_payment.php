@@ -22,7 +22,8 @@ if ($cart_query->rowCount() > 0) {
         $vnp_OrderInfo .= $cart_item['name'] . ' (' . $cart_item['quantity'] . ') ';
     }
 }
-$vnp_TxnRef = rand(00,9999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+$order_code = $order_result['order_code'];
+$vnp_TxnRef = $order_code;  //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
 $vnp_OrderInfo = 'thanh toan don hang '. $vnp_TxnRef;
 $vnp_OrderType = 'billpayment';
 $vnp_Amount = $order_result['total_price'] * 100;
@@ -76,6 +77,9 @@ $returnData = array('code' => '00'
     , 'data' => $vnp_Url);
     if (!headers_sent()) {
         header('Location: ' . $vnp_Url);
+        $delete_cart_query = $pdo->prepare("DELETE FROM `cart` WHERE user_id = :user_id");
+        $delete_cart_query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $delete_cart_query->execute();
         die();
     } else {
         echo "Headers already sent";

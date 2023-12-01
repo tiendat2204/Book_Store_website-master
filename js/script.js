@@ -45,6 +45,16 @@ const swiper = new Swiper(".home-slider", {
   },
 });
 
+// order
+
+document.addEventListener('DOMContentLoaded', function () {
+  var canceledOrdersList = document.getElementById('canceled-orders-list');
+  var toggleCanceledOrdersButton = document.getElementById('toggle-canceled-orders');
+  toggleCanceledOrdersButton.addEventListener('click', function () {
+      canceledOrdersList.style.display = canceledOrdersList.style.display === 'none' ? 'flex' : 'none';
+      toggleCanceledOrdersButton.innerText = canceledOrdersList.style.display === 'none' ? 'Đơn Hàng Đã Hủy' : 'Ẩn Đơn Hàng Đã Hủy';
+  });
+});
 // Change the quantity of a product in the cart
 function changeQuantity(action, cartId) {
   // Get the relevant DOM elements
