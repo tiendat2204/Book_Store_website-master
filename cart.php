@@ -56,7 +56,7 @@ include './controller/cartCURD.php';
                                     <div class="row border-bottom py-3" data-cart-id="<?= $row['id'] ?>">
                                         <div class="col-lg-2 col-md-12 mb-4 mb-lg-0">
                                             <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                <img src="images/<?= $product_image ?>" class="img-fluid" />
+                                                <img src="uploaded_img/<?= $product_image ?>" class="img-fluid" />
                                                 <a href="#!">
                                                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                                                 </a>

@@ -43,7 +43,7 @@ include './controller/thanhtoan.php';
            
             ?>
             <div class="product-info">
-            <img src="images/<?php echo $fetch_cart['image']; ?>" alt="<?php echo $fetch_cart['name']; ?>" class="product-image">
+            <img src="uploaded_img/<?php echo $fetch_cart['image']; ?>" alt="<?php echo $fetch_cart['name']; ?>" class="product-image">
             <p><?php echo $fetch_cart['name']; ?> <span>(<?php echo number_format($fetch_cart['price'], 0, ',', '.') . 'đ/-' . ' Số lượng: ' . $fetch_cart['quantity']; ?>)</span></p>
         </div>
             <?php

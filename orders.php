@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
                                             while ($canceled_product = $canceled_product_query->fetch(PDO::FETCH_ASSOC)) {
                                                 echo "<li class='canceled-order-product'>";
                                                 echo "<a href='product_detail.php?product_id={$canceled_product['product_id']}'>";
-                                                echo "<img src='images/{$canceled_product['product_image']}' alt='{$canceled_product['product_name']}' class='product-thumbnail'>";
+                                                echo "<img src='uploaded_img/{$canceled_product['product_image']}' alt='{$canceled_product['product_name']}' class='product-thumbnail'>";
                                                 echo "{$canceled_product['product_name']} - Số lượng: {$canceled_product['quantity']}";
                                                 echo "</a>";
                                                 echo "</li>";
@@ -214,9 +214,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
                                     <div class="order-details">
                                         <div class="order-value-image">
                                             <a href="product_detail.php?product_id=<?php echo $fetch_order_detail['product_id']; ?>">
-                                                <img src="images/<?php echo $fetch_order_detail['product_image']; ?>" alt="Product Image">
+                                                <img src="uploaded_img/<?php echo $fetch_order_detail['product_image']; ?>" alt="Product Image">
                                             </a>
                                             <div class="order-value-product"><?php echo $fetch_order_detail['product_name']; ?></div>
+                                            
                                         </div>
                                         <div class="order-value-quantity"><?php echo $fetch_order_detail['quantity']; ?>  quyển</div>
                                         <div class="order-value-price"><?php echo number_format($fetch_order_detail['subtotal'], 0, ',', '.') . ' VND'; ?></div>
@@ -230,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
                                 <div class="order-value-total"><?php echo number_format($fetch_orders['total_price'], 0, ',', '.') . ' VND'; ?></div>
                             </div>
                             <div class="order-row-status">
-                                <div class="order-status">Tình trạng dơn hàng:</div>
+                                <div class="order-status">Tình trạng đơn hàng:</div>
                                 <div class="order-value-status" style="color:<?php echo ($fetch_orders['payment_status'] == 'Đợi xác nhận') ? 'red' : 'green'; ?>"><?php echo $fetch_orders['payment_status']; ?></div>
                                 <?php if ($fetch_orders['payment_status'] == 'Đợi xác nhận'): ?>
                                     <a href="./controller/cancel_order.php?order_id=<?php echo $fetch_orders['id']; ?>" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng không?');" class="cancel-link">Hủy đơn hàng</a>

@@ -63,7 +63,7 @@ if ($product_id) {
             <div class="container px-4 px-lg-5 my-5 shadow-lg p-3 mb-5 bg-white rounded">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-4">
-                        <img class="card-img-top mb-5 mb-md-0" src="images/<?php echo $product_image; ?>" alt="<?php echo $product_name; ?>" />
+                        <img class="card-img-top mb-5 mb-md-0" src="uploaded_img/<?php echo $product_image; ?>" alt="<?php echo $product_name; ?>" />
                     </div>
 
                     <div class="col-md-6">
@@ -107,7 +107,7 @@ if ($product_id) {
                         <div class="col mb-5 ms-3">
                             <div class="card" style="height: 626px;">
                                 <a href="product_detail.php?product_id=<?php echo $related_product['id']; ?>">
-                                    <img class="card-img-top" src="images/<?php echo $related_product['image']; ?>" alt="<?php echo $related_product['name']; ?>" />
+                                    <img class="card-img-top" src="./uploaded_img/<?php echo $related_product['image']; ?>" alt="<?php echo $related_product['name']; ?>" />
                                 </a>
                                 <div class="card-body p-4">
                                     <div class="text-center">

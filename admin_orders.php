@@ -26,9 +26,9 @@
         <section class="orders">
             <h1 class="title">Đơn hàng đã đặt</h1>
             <div class="box-container">
-                <?php
+            <?php
 try {
-    $select_orders = $pdo->query("SELECT orders.*, users.name AS user_name, users.phone AS user_phone, users.email AS user_email, GROUP_CONCAT(products.image) AS product_images FROM orders LEFT JOIN users ON orders.user_id = users.id LEFT JOIN order_detail ON orders.id = order_detail.order_id LEFT JOIN products ON order_detail.product_id = products.id GROUP BY orders.id");
+    $select_orders = $pdo->query("SELECT orders.*, users.name AS user_name, users.phone AS user_phone, users.email AS user_email, GROUP_CONCAT(products.name) AS product_names, GROUP_CONCAT(products.image) AS product_images, COUNT(order_detail.id) AS total_products FROM orders LEFT JOIN users ON orders.user_id = users.id LEFT JOIN order_detail ON orders.id = order_detail.order_id LEFT JOIN products ON order_detail.product_id = products.id GROUP BY orders.id");
     if ($select_orders->rowCount() > 0) {
         while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
 ?>
@@ -40,6 +40,7 @@ try {
                 <p> Email : <span><?= $fetch_orders['user_email'] ?></span> </p>
                 <p> Địa chỉ : <span><?= $fetch_orders['address'] ?></span> </p>
                 <p> Tổng số sản phẩm : <span><?= $fetch_orders['total_products'] ?></span> </p>
+                <p> Tên sản phẩm : <span><?= $fetch_orders['product_names'] ?></span> </p>
                 <p> Tổng giá : <span><?= number_format($fetch_orders['total_price'], 0, ',', '.') ?>đ</span> </p>
                 <p> Phương thức thanh toán : <span><?= $fetch_orders['method'] ?></span> </p>
                 <div class="image-prd-order">
@@ -48,7 +49,7 @@ try {
                     foreach ($product_images as $image) {
                 ?>
 
-                    <img src="images/<?= $image ?>" alt="Product Image" class="image-order">
+                    <img src="uploaded_img/<?= $image ?>" alt="Product Image" class="image-order">
                     <?php
                     }
                     ?>
@@ -62,7 +63,6 @@ try {
                         <option value="Chờ giao hàng">Chờ giao hàng</option>
                         <option value="Chưa thanh toán">Chưa thanh toán</option>
                         <option value="Đã giao hàng">Đã giao hàng</option>
-
                     </select>
                     <input type="submit" value="Cập nhật" name="update_order" class="option-btn">
                     <a href="admin_orders.php?delete=<?= $fetch_orders['id'] ?>" onclick="return confirm('Xóa đơn hàng này?');" class="delete-btn">Xóa</a>
@@ -76,8 +76,9 @@ try {
 } catch (PDOException $e) {
     die('Truy vấn thất bại: ' . $e->getMessage());
 }
+?>
 
-                ?>
+
             </div>
         </section>
 
