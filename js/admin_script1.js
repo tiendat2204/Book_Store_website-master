@@ -37,3 +37,13 @@ function cancelAddUser() {
   var addUserSection = document.querySelector('.container_user');
   addUserSection.style.display = 'none';
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var messages = document.querySelectorAll('.message');
+
+  messages.forEach(function (message) {
+      setTimeout(function () {
+          message.style.display = 'none'; 
+      }, 4500);
+  });
+});

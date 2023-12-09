@@ -74,10 +74,11 @@ section {
 }
 
 .message {
+  text-align: center;
   position: sticky;
   top: 0;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 30%;
   background-color: #ffebcb;
   padding: 2rem;
   display: flex;
@@ -137,7 +138,6 @@ section {
 
 .btn,
 .option-btn,
-.delete-btn,
 .white-btn {
   display: inline-block;
   margin-top: 1rem;
@@ -150,8 +150,7 @@ section {
 }
 
 .btn:hover,
-.option-btn:hover,
-.delete-btn:hover {
+.option-btn:hover {
   background-color: var(--black);
 }
 
@@ -162,10 +161,6 @@ section {
 
 .option-btn {
   background-color: var(--orange);
-}
-
-.delete-btn {
-  background-color: var(--red);
 }
 
 .white-btn:hover {
@@ -347,7 +342,7 @@ section {
 
 .show-products .box-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 30rem);
+  grid-template-columns: repeat(4, 30rem);
   justify-content: center;
   gap: 1.5rem;
   max-width: 1200px;
@@ -452,12 +447,11 @@ section {
   width: 40%;
   height: auto;
   border-radius: 5px;
-  margin: 5px ;
- 
+  margin: 5px;
 }
-.image-prd-order{
+.image-prd-order {
   display: flex;
-  justify-content: center ;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -479,47 +473,7 @@ section {
   font-size: 1.8rem;
   color: var(--black);
 }
-.users{
-  align-items: center;
-  text-align: center;
-}
-.users .box-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 35rem);
-  justify-content: center;
-  gap: 1.5rem;
-  max-width: 1200px;
-  height: 100rem;
-  margin: 0 auto;
-  align-items: flex-start;
-  background: rgb(236, 236, 236);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-}
 
-.users .box-container .box {
- margin: 15px 10px ;
-  padding: 2rem;
-
-  text-align: center;
-
-  border-radius: 30px;
-  background: #e0e0e0;
-  box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
-}
-
-.users .box-container .box p {
-  padding-bottom: 1.5rem;
-  font-size: 2rem;
-  color: var(--light-color);
-}
-
-.users .box-container .box p span {
-  color: var(--purple);
-}
-
-.users .box-container .box .delete-btn {
-  margin-top: 0;
-}
 
 .messages .box-container {
   display: grid;
@@ -615,6 +569,29 @@ canvas {
   font-size: 24px;
   text-align: center;
 }
+.reply-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reply-form textarea {
+  resize: vertical;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.reply-form .submit-btn {
+  padding: 8px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reply-form .submit-btn:hover {
+  background-color: #45a049;
+}
 
 .comments {
   width: 80%;
@@ -624,6 +601,35 @@ canvas {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+}
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for Comment Reply Form */
+.reply-form {
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  resize: vertical;
+  background-color: #bebebe;
+}
+
+.reply-form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.reply-form input[type="submit"]:hover {
+  background-color: #45a049;
 }
 
 .box {
@@ -658,7 +664,8 @@ canvas {
   text-align: center;
   color: #777;
 }
-.edit-btn {
+.edit-btn,
+.block-btn {
   margin-top: 10px;
   display: inline-block;
   padding: 8px 16px;
@@ -697,10 +704,10 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000; 
+  z-index: 1000;
 }
 .user_add {
-text-align: center;
+  text-align: center;
   max-width: 100%;
   font-family: "Segoe UI", sans-serif;
   background-color: #f5f5f5;
@@ -821,7 +828,7 @@ text-align: center;
 }
 
 .edit-user-form button {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -833,13 +840,278 @@ text-align: center;
   background-color: #0056b3;
 }
 .edit-user-container a.cancel-btn {
- background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-a.cancel-btn:hover{
+a.cancel-btn:hover {
   background-color: #9e2e2e;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+/* Định dạng hình ảnh sản phẩm */
+.image-order {
+  max-width: 70px;
+  max-height: 70px;
+}
+
+/* Định dạng cập nhật thanh toán dropdown và nút cập nhật */
+select[name="update_payment"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.custom-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #ccc;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.reply-btn {
+  cursor: pointer;
+  color: #3498db;
+}
+
+.reply-btn:hover {
+  text-decoration: underline;
+}
+section.show-prd {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+thead {
+  background-color: #3498db;
+  color: #fff;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+td img {
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: #3498db;
+  margin-right: 10px;
+}
+
+a:hover {
+  color: #2c3e50;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Đối với màn hình nhỏ */
+
+@media (max-width: 768px) {
+  td,
+  th {
+    font-size: 14px;
+  }
+
+  td img {
+    max-width: 60px;
+    max-height: 60px;
+  }
+}
+.product-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.update-button,
+.delete-button {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 5px;
+  text-decoration: none;
+  border: 1px solid #3498db;
+  color: #3498db;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.update-button:hover,
+.delete-button:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.delete-button {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.delete-button:hover {
+  background-color: #e74c3c;
+  color: #fff;
+}
+.logout-btn {
+  padding: 10px 15px;
+  background-color: #ff0000; /* Màu đỏ */
+  color: #fff; /* Màu chữ trắng */
+  text-decoration: none;
+  border-radius: 5px;
+  
+  margin-top: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #cc0000; /* Màu đỏ nhạt khi hover */
+}
+
+/* category */
+.category-heading {
+  text-align: center;
+  margin-top: 20px;
+  color: #333;
+}
+
+.category-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.category-input {
+  width: 100%;
+  padding: 10px;
+ margin: 10px 0px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.category-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.category-button:hover {
+  background-color: #45a049;
+}
+.edit-category-form {
+  margin-top: 10px;
+}
+
+.edit-category-form input {
+  width: 200px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.edit-category-form button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the "Sửa" link */
+.edit-link {
+  color: #2196F3;
+  cursor: pointer;
+}
+
+/* Style to hide the text when the form is visible */
+.edit-category-form.active {
+  display: block;
+}
+
+.category-name-text.inactive {
+  display: block;
 }

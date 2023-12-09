@@ -18,10 +18,10 @@ if (isset($_POST['add_product'])) {
     $image_size = $_FILES['image']['size'];
     $image_tmp_name = $_FILES['image']['tmp_name'];
     $image_folder = 'uploaded_img/' . $image;
-    $author = $_POST['author']; // Thêm thông tin tác giả
-    $publisher = $_POST['publisher']; // Thêm thông tin nhà sản xuất
-    $supplier = $_POST['supplier']; // Thêm thông tin nhà cung cấp
-    $in4 = $_POST['in4']; // Thêm thông tin sách (in4 sách)
+    $author = $_POST['author'];
+    $publisher = $_POST['publisher']; 
+    $supplier = $_POST['supplier']; 
+    $in4 = $_POST['in4']; 
     $category_id = $_POST['category_id'];
 
     $select_product_name = $pdo->prepare("SELECT name FROM `products` WHERE name = :name");
@@ -45,13 +45,16 @@ if (isset($_POST['add_product'])) {
             $add_product_query->bindParam(':category_id', $category_id, PDO::PARAM_INT);
             if ($add_product_query->execute()) {
                 move_uploaded_file($image_tmp_name, $image_folder);
-                $message[] = 'Thêm sản phẩm thành công!';
+                $_SESSION['messages'] = array('Thêm sản phẩm thành công!');
+
             } else {
-                $message[] = 'Không thể thêm sản phẩm';
+                $_SESSION['messages'] = array('Thêm sản phẩm thất bại!');
+
             }
         }
     }
-    $_SESSION['messages'] = $message;
+    header('Location: ./admin_products.php');
+exit();
 }
 
 if (isset($_GET['delete'])) {
@@ -65,8 +68,9 @@ if (isset($_GET['delete'])) {
     $delete_product_query = $pdo->prepare("DELETE FROM `products` WHERE id = :delete_id");
     $delete_product_query->bindParam(':delete_id', $delete_id, PDO::PARAM_INT);
     $delete_product_query->execute();
-    $message[] = 'Xóa sản phẩm thành công!';
-    $_SESSION['messages'] = $message;
+    $_SESSION['messages'] = array('Xóa sản phẩm thành công!');
+    header('Location: ./admin_products.php');
+    exit();
     
 }
 
@@ -85,10 +89,12 @@ if (isset($_POST['update_product'])) {
     $update_image_size = $_FILES['update_image']['size'];
     $update_folder = 'uploaded_img/' . $update_image;
     $update_old_image = $_POST['update_old_image'];
+    $update_status = $_POST['update_status'];
+
 
 
       
-    $update_product_query = $pdo->prepare("UPDATE `products` SET name = :update_name, price = :update_price, tacgia = :update_author, nhaxuatban = :update_publisher, nhacungcap = :update_supplier, in4 = :update_in4, category_id = :update_category_id WHERE id = :update_p_id");
+    $update_product_query = $pdo->prepare("UPDATE `products` SET name = :update_name, price = :update_price, tacgia = :update_author, nhaxuatban = :update_publisher, nhacungcap = :update_supplier, in4 = :update_in4, category_id = :update_category_id, status_products = :status_products WHERE id = :update_p_id");
     $update_product_query->bindParam(':update_name', $update_name, PDO::PARAM_STR);
     $update_product_query->bindParam(':update_price', $update_price, PDO::PARAM_INT);
     $update_product_query->bindParam(':update_author', $update_author, PDO::PARAM_STR);
@@ -97,11 +103,13 @@ if (isset($_POST['update_product'])) {
     $update_product_query->bindParam(':update_in4', $update_in4, PDO::PARAM_STR);
     $update_product_query->bindParam(':update_category_id', $update_category_id, PDO::PARAM_INT);
     $update_product_query->bindParam(':update_p_id', $update_p_id, PDO::PARAM_INT);
+    $update_product_query->bindParam(':status_products', $update_status, PDO::PARAM_STR);
 
     if ($update_product_query->execute()) {
         if (!empty($update_image)) {
             if ($update_image_size > 2000000) {
-                $message[] = 'kích thước ảnh quá lớn';
+                $_SESSION['messages'] = array('Kích thước ảnh quá lớn!');
+
             } else {
                 $update_image_query = $pdo->prepare("UPDATE `products` SET image = :update_image WHERE id = :update_p_id");
                 $update_image_query->bindParam(':update_image', $update_image, PDO::PARAM_STR);
@@ -112,11 +120,14 @@ if (isset($_POST['update_product'])) {
                 unlink('uploaded_img/' . $update_old_image);
             }
         }
-        $message[] = 'Cập nhật sản phẩm thành công!';
+        $_SESSION['messages'] = array('Cập nhật sản phẩm thành công!');
+
       
     } else {
-        $message[] = 'Không thể cập nhật sản phẩm';
+        $_SESSION['messages'] = array('Cập nhật sản phẩm thất bại');
+
     }
-    $_SESSION['messages'] = $message;
+    header('Location: ./admin_products.php');
+    exit();
 }
 ?>

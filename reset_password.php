@@ -22,11 +22,7 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
             $update_users->execute();
 
             // Thông báo cho người dùng biết rằng mật khẩu của họ đã được thay đổi thành công
-            $message[] = 'Mật khẩu của bạn đã được thay đổi thành công vui lòng đăng nhập .';
-
-            // Chuyển hướng đến trang đăng nhập
-           
-            
+            $message[] = 'Mật khẩu của bạn đã được thay đổi thành công vui lòng đăng nhập.';
         }
     } else {
         $message[] = 'Liên kết không hợp lệ.';
@@ -44,10 +40,8 @@ if (isset($_GET['email']) && isset($_GET['token'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
 
-    <!-- font awesome cdn link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>

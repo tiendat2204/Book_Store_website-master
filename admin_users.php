@@ -42,36 +42,60 @@ if (isset($_GET['id'])) {
                     <option value="user" <?php if ($user['user_type'] === 'user') echo 'selected'; ?>>Người dùng</option>
                     <option value="admin" <?php if ($user['user_type'] === 'admin') echo 'selected'; ?>>Admin</option>
                 </select>
+                <label for="status">Trạng thái tài khoản:</label>
+<select name="status" required>
+    <option value="active" <?php echo ($user['status'] == 'active') ? 'selected' : ''; ?>>Active</option>
+    <option value="blocked" <?php echo ($user['status'] == 'blocked') ? 'selected' : ''; ?>>Blocked</option>
+</select>
+
                 <button type="submit" name="edit_user">Lưu thay đổi</button>
                 <a href="admin_users.php" class="cancel-btn">Hủy</a>
             </form>
         </section>
     <?php endif; ?>
     <section class="users">
-        <a href="add_user.php" class="add-btn">Thêm người dùng</a>
-        <div class="box-container">
+    <a href="add_user.php" class="add-btn">Thêm người dùng</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Trạng thái</th>
+                <th>ID người dùng</th>
+                <th>Tên người dùng</th>
+                <th>Email</th>
+                <th>Loại người dùng</th>
+                <th>Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php
             try {
-                // Sử dụng biến kết nối từ tệp cấu hình
                 $stmt = $pdo->query("SELECT * FROM `users`");
                 while ($fetch_users = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     ?>
-                    <div class="box">
-                        <p>ID người dùng: <span><?php echo $fetch_users['id']; ?></span></p>
-                        <p>Tên người dùng: <span><?php echo $fetch_users['name']; ?></span></p>
-                        <p>Email: <span><?php echo $fetch_users['email']; ?></span></p>
-                        <p>Loại người dùng: <span style="color:<?php if ($fetch_users['user_type'] == 'admin') { echo 'var(--orange)'; } ?>"><?php echo $fetch_users['user_type']; ?></span></p>
-                        <a href="admin_users.php?delete=<?php echo $fetch_users['id']; ?>" onclick="return confirm('Xóa người dùng này?');" class="delete-btn">Xóa người dùng</a>
-                        <a href="admin_users.php?edit=<?php echo $fetch_users['id']; ?>" data-user-id="<?php echo $fetch_users['id']; ?>" class="edit-btn">Chỉnh sửa người dùng</a>
-                    </div>
+                    <tr>
+                        <td style="color:<?php echo ($fetch_users['status'] == 'blocked') ? 'var(--red)' : 'var(--green)'; ?>">
+                            <?php echo ucfirst($fetch_users['status']); ?>
+                        </td>
+                        <td><?php echo $fetch_users['id']; ?></td>
+                        <td><?php echo $fetch_users['name']; ?></td>
+                        <td><?php echo $fetch_users['email']; ?></td>
+                        <td style="color:<?php echo ($fetch_users['user_type'] == 'admin') ? 'var(--orange)' : 'inherit'; ?>">
+                            <?php echo $fetch_users['user_type']; ?>
+                        </td>
+                        <td>
+                            <a href="admin_users.php?edit=<?php echo $fetch_users['id']; ?>" data-user-id="<?php echo $fetch_users['id']; ?>" class="edit-btn">Chỉnh sửa người dùng</a>
+                        </td>
+                    </tr>
                     <?php
                 }
             } catch (PDOException $e) {
                 echo "Lỗi: " . $e->getMessage();
             }
             ?>
-        </div>
-    </section>
+        </tbody>
+    </table>
+</section>
+
 
     <section class="container_user" style="display: none;">
         <div class="user_add">
@@ -104,27 +128,20 @@ if (isset($_GET['id'])) {
             </form>
         </div>
     </section>
-
-    <!-- Custom admin JS file link -->
     <script src="js/admin_script1.js"></script>
     <script>
-        // JavaScript code to handle the edit button click
         document.addEventListener('DOMContentLoaded', function () {
             var editButtons = document.querySelectorAll('.edit-btn');
             var editUserContainer = document.getElementById('editUserContainer');
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function (event) {
-                    event.preventDefault(); // Prevent the default link behavior
+                    event.preventDefault(); 
 
                     var userId = button.getAttribute('data-user-id');
-
-                    // Redirect the user to the same page with the 'id' parameter
                     window.location.href = 'admin_users.php?id=' + userId;
                 });
             });
-
-            // Show the edit user container if the user is editing
             <?php if (isset($user)): ?>
             editUserContainer.style.display = 'block';
             <?php endif; ?>

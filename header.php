@@ -1,6 +1,4 @@
 <?php
-
-
 if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
     foreach ($_SESSION['messages'] as $msg) {
         echo '
@@ -10,8 +8,6 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
             </div>
         ';
     }
-
-    // Xóa các thông báo sau khi đã hiển thị
     unset($_SESSION['messages']);
 }
 ?>
@@ -43,8 +39,8 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
                 </div>
                 <a href="contact.php">Liên Hệ</a>
                 <a href="orders.php">Đơn Hàng</a>
-            </nav>
-
+          
+                </nav>
             <div class="icons">
                 <div id="menu-btn" class="fas fa-bars"></div>
                 <a href="search_page.php" class="fas fa-search"></a>
@@ -64,9 +60,15 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
                         <a href="logout.php" class="delete-btn">Đăng Xuất</a>
                     </div>
                 <?php else: ?>
-                    <a href="login.php">Đăng nhập</a>
-                    <a href="register.php">Đăng ký</a>
+                    <div id="user-icon" class="fas fa-user"></div>
+                    <div class="user-box">
+                        <div class="res">
+                    <a href="login.php" class="custom-link">Đăng nhập</a>
+                <a href="register.php" class="custom-link">Đăng ký</a>
+                </div>
+                        </div>
                 <?php endif; ?>
+                
                 <?php
                 $select_cart_number = $pdo->prepare("SELECT COUNT(*) FROM `cart` WHERE user_id = :user_id");
                 $select_cart_number->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -74,11 +76,20 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
                 $cart_rows_number = $select_cart_number->fetchColumn();
                 ?>
                 <a href="cart.php"> <i class="fas fa-shopping-cart"></i> <span>(<?= $cart_rows_number ?>)</span> </a>
+                
             </div>
+            
         </div>
     </div>
 </header>
 <script>
-    // Toggle the navigation bar's active class when the menu button is clicked
-
+document.addEventListener("DOMContentLoaded", function() {
+    var messages = document.querySelectorAll(".message");
+    
+    messages.forEach(function(message) {
+        setTimeout(function() {
+            message.style.display = "none";
+        }, 4000); 
+    });
+});
 </script>

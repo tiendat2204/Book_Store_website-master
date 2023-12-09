@@ -1,5 +1,51 @@
 <?php
-include './controller/dashboard.php';
+include './model/config.php';
+
+session_start();
+
+$admin_id = $_SESSION['admin_id'];
+
+if (!isset($admin_id)) {
+    header('location:login.php');
+}
+
+$categories = ['Tâm Lý', 'Kinh Dị', 'Đời Sống', 'Động Vật'];
+$productCounts = [];
+
+foreach ($categories as $category) {
+    $select_products = $pdo->prepare("SELECT COUNT(*) as count FROM `products` WHERE category_id = (SELECT id FROM `categories` WHERE name = :category)");
+    $select_products->bindParam(':category', $category);
+    $select_products->execute();
+    $result = $select_products->fetch(PDO::FETCH_ASSOC);
+    $count = $result['count'];
+    array_push($productCounts, $count);
+}
+
+$number_of_comments = 0;
+$select_comments = $pdo->query("SELECT * FROM `comment`");
+$number_of_comments = $select_comments->rowCount();
+
+$number_of_products = 0;
+$select_products = $pdo->query("SELECT * FROM `products`");
+$number_of_products = $select_products->rowCount();
+
+$number_of_users = 0;
+$select_users = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'user'");
+$select_users->execute();
+$number_of_users = $select_users->rowCount();
+
+$number_of_admins = 0;
+$select_admins = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'admin'");
+$select_admins->execute();
+$number_of_admins = $select_admins->rowCount();
+
+$number_of_account = 0;
+$select_account = $pdo->query("SELECT * FROM `users`");
+$number_of_account = $select_account->rowCount();
+
+$number_of_messages = 0;
+$select_messages = $pdo->query("SELECT * FROM `message`");
+$number_of_messages = $select_messages->rowCount();
 ?>
 
 
@@ -19,6 +65,8 @@ include './controller/dashboard.php';
 
     <!-- Tệp CSS tùy chỉnh của bạn -->
     <link rel="stylesheet" href="css/admin_style.css">
+  
+
 </head>
 
 <body>
@@ -26,18 +74,20 @@ include './controller/dashboard.php';
     <?php include 'admin_header.php'; ?>
 
     <!-- admin dashboard section starts -->
-
     <section class="dashboard">
 
-        <h1 class="title">dashboard</h1>
+    <h1 class="title">Bảng điều khiển</h1>
+
+
 
         <div class="box-container">
+            
 
             <div class="box">
                 <?php
                 $total_pendings = 0;
                 $select_pending = $pdo->prepare("SELECT total_price FROM
-                `orders` WHERE payment_status = 'pending'");
+                `orders` WHERE payment_status = 'Đợi xác nhận'");
                 $select_pending->execute();
                 $fetch_pendings = $select_pending->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($fetch_pendings as $pending) {
@@ -45,7 +95,8 @@ include './controller/dashboard.php';
                     $total_pendings += $total_price;
                 }
                 ?>
-                <h3>$<?php echo $total_pendings; ?>/-</h3>
+             <h3><?php echo number_format($total_pendings, 0, ',', '.') . 'đ'; ?></h3>
+
                 <p>Đang xử lí</p>
             </div>
 
@@ -53,7 +104,7 @@ include './controller/dashboard.php';
                 <?php
                 $total_completed = 0;
                 $select_completed = $pdo->prepare("SELECT total_price FROM
-                `orders` WHERE payment_status = 'completed'");
+                `orders` WHERE payment_status = 'Đã giao hàng'");
                 $select_completed->execute();
                 $fetch_completed = $select_completed->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($fetch_completed as $completed) {
@@ -61,7 +112,7 @@ include './controller/dashboard.php';
                     $total_completed += $total_price;
                 }
                 ?>
-                <h3>$<?php echo $total_completed; ?>/-</h3>
+              <h3><?php echo number_format($total_completed, 0, ',', '.') . 'đ'; ?></h3>
                 <p>thanh toán hoàn tất</p>
             </div>
 
@@ -94,15 +145,6 @@ include './controller/dashboard.php';
             </div>
 
             <div class="box">
-                <?php
-                $select_admins = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'admin'");
-                $select_admins->execute();
-                $number_of_admins = $select_admins->rowCount();
-                ?>
-                <h3><?php echo $number_of_admins; ?></h3>
-                <p>Quản trị viên</p>
-            </div>
-            <div class="box">
     <h3><?php echo $number_of_comments; ?></h3>
     <p>Số bình luận</p>
 </div>
@@ -134,7 +176,7 @@ include './controller/dashboard.php';
                 </div>
         </div>
     </section>
-
+   
     <script>
     // Lấy thẻ <canvas> cho biểu đồ Doughnut
     var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
@@ -159,10 +201,10 @@ var doughnutChart = new Chart(doughnutCtx, {
     type: 'doughnut',
     data: doughnutData,
     options: {
-        responsive: false, // Để kích thước cố định
+        responsive: false, 
     }
 });
-    // Lấy thẻ <canvas> cho biểu đồ sóng
+ 
     var lineCtx = document.getElementById('lineChart').getContext('2d');
 
 var lineData = {

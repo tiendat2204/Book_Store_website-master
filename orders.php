@@ -9,64 +9,8 @@ if (!isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
+require_once './controller/c_getnoti.php';
 
-    // Check if it is a VNPAY payment
-    if (isset($_GET['vnp_ResponseCode'])) {
-        $vnp_Amount = $_GET['vnp_Amount'];
-        $vnp_ResponseCode = $_GET['vnp_ResponseCode'];
-        $vnp_TxnRef = $_GET['vnp_TxnRef'];
-
-        // Check order status for VNPAY
-        if ($vnp_ResponseCode == '00') {
-            // Order successful
-            $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán thành công !");
-        } else {
-            // Order unsuccessful
-            $_SESSION['messages'] = array("Đơn hàng có mã $vnp_TxnRef đã thanh toán không thành công !");
-            
-            // Set payment status to 'Chưa thanh toán'
-            $updateStatusQuery = $pdo->prepare("UPDATE orders SET payment_status = 'Chưa thanh toán' WHERE order_code = :order_code");
-            $updateStatusQuery->bindParam(':order_code', $vnp_TxnRef, PDO::PARAM_STR);
-            $updateStatusQuery->execute();
-            
-        }
-
-        unset($_SESSION['order_status']);
-    }
-
-    // Check if it is a MoMo payment
-    elseif (isset($_GET['transId'])) {
-        $partnerCode = $_GET['partnerCode'];
-        $orderId = $_GET['orderId'];
-        $requestId = $_GET['requestId'];
-        $amount = $_GET['amount'];
-        $orderInfo = $_GET['orderInfo'];
-        $resultCode = $_GET['resultCode'];
-        $message = $_GET['message'];
-
-        // Check order status for MoMo
-        if ($resultCode == '0') {
-            // Order successful
-            $_SESSION['messages'] = array("Đơn hàng có mã $orderId đã thanh toán thành công !");
-        } else {
-            // Order unsuccessful
-            $_SESSION['messages'] = array("Đơn hàng có mã $orderId đã thanh toán không thành công !");
-            
-            // Set payment status to 'Chưa thanh toán'
-            $updateStatusQuery = $pdo->prepare("UPDATE orders SET payment_status = 'Chưa thanh toán' WHERE order_code = :order_code");
-            $updateStatusQuery->bindParam(':order_code', $orderId, PDO::PARAM_STR);
-            $updateStatusQuery->execute();
-        }
-
-        unset($_SESSION['order_status']);
-    }
-    
-} else {
-    // Handle other cases or actions as needed
-}
-
-// Đoạn mã HTML và JavaScript ở đây...
 ?>
 
 
@@ -77,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đơn Hàng</title>
+    <link rel="icon" href="./images/logo.avif" type="image/png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -202,9 +147,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
                                 <div class="order-row-price">
                                     GIÁ SẢN PHẨM
                                 </div>
+                                <div class="order-row-price">
+                                    THÀNH TIỀN
+                                </div>
                             </div>
                             <?php
-                            $order_detail_query = $pdo->prepare("SELECT order_detail.*, products.name AS product_name, products.image AS product_image FROM order_detail LEFT JOIN products ON order_detail.product_id = products.id WHERE order_detail.order_id = :order_id");
+$order_detail_query = $pdo->prepare("SELECT order_detail.*, products.name AS product_name, products.image AS product_image, products.price AS product_price FROM order_detail LEFT JOIN products ON order_detail.product_id = products.id WHERE order_detail.order_id = :order_id");
                             $order_detail_query->bindParam(':order_id', $fetch_orders['id'], PDO::PARAM_INT);
                             $order_detail_query->execute();
 
@@ -220,7 +168,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET)) {
                                             
                                         </div>
                                         <div class="order-value-quantity"><?php echo $fetch_order_detail['quantity']; ?>  quyển</div>
-                                        <div class="order-value-price"><?php echo number_format($fetch_order_detail['subtotal'], 0, ',', '.') . ' VND'; ?></div>
+                                        <div class="order-value-price"><?php echo number_format($fetch_order_detail['product_price'], 0, ',', '.') . ' VND'; ?></div>
+                                        <div class="order-value-price-all"><?php echo number_format($fetch_order_detail['subtotal'], 0, ',', '.') . ' VND'; ?></div>
                                     </div>
                                 </section>
                                 <?php

@@ -25,6 +25,8 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
             <a href="admin_users.php">Người dùng</a>
             <a href="admin_comment.php">Bình luận</a>
             <a href="admin_contacts.php">Tin nhắn</a>
+            <a href="admin_category.php">Danh mục</a>
+
         </nav>
 
         <div class="icons">
@@ -46,7 +48,8 @@ if (isset($_SESSION['messages']) && is_array($_SESSION['messages'])) {
                 echo '<p>Email : <span>' . $admin_data['email'] . '</span></p>';
             }
             ?>
-            <a href="logout.php" class="delete-btn">Đăng xuất</a>
+    <a href="logout.php" class="logout-btn">Đăng Xuất</a>
+
         </div>
 
     </div>

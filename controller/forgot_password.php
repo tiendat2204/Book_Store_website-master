@@ -46,25 +46,16 @@ if (isset($_POST['submit'])) {
             $mail->Subject = 'Restart password!';
             $mail->Body    = 'Hãy bấm vào liên kết bên để khôi phục mật khẩu: <a href="http://localhost:3000/reset_password.php?email=' . $email . '&token=' . $token . '">Reset Password</a>';
             $mail->send();
-            $message[] = [
-                'type' => 'success',
-                'text' => 'Thư đặt đã được gửi đến địa chỉ email của bạn.'
-            ];
+            $_SESSION['messages'] = array('Địa chỉ restart mật khẩu đã được gửi!');
+
         } catch (Exception $e) {
             echo 'Lỗi: ' . $mail->ErrorInfo;
         }
     } else {
-        $message[] = [
-            'type' => 'error',
-            'text' => 'Email không tồn tại.'
-        ];
+        $_SESSION['messages'] = array('Email không tồn tại!');
+
     }
-
-    // Lưu thông báo vào session
-    $_SESSION['forgot_password_message'] = $message;
 }
-
-// Chuyển hướng về trang login.php
 header('Location: ../login.php');
 exit();
 ?>

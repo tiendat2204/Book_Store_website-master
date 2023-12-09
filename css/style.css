@@ -793,7 +793,7 @@ box-rsp:hover {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 30rem);
+  grid-template-columns: repeat(4, 30rem);
   align-items: flex-start;
   gap: 1.5rem;
   justify-content: center;
@@ -807,6 +807,7 @@ box-rsp:hover {
   text-align: center;
   border: var(--border);
   position: relative;
+  height: 100%;
 }
 .products .box-container .box:hover {
   transform: translateY(-10px);
@@ -1365,10 +1366,12 @@ box-rsp:hover {
     border-bottom: var(--border);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   }
-
+  
   .header .header-2 .flex .navbar.active {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     z-index: 1500;
+    display: flex;
+    flex-direction: column;
   }
 
   .header .header-2 .flex .navbar a {
@@ -1377,7 +1380,24 @@ box-rsp:hover {
     margin: 2rem;
   }
 }
+.custom-link {
+  text-decoration: none;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: #333;
+  margin-bottom: 3px;
+}
 
+.custom-link:hover {
+  background-color: #eee;
+}
+.res{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
 @media (max-width: 600px) {
   html {
     font-size: 50%;
@@ -1403,56 +1423,53 @@ box-rsp:hover {
   }
 }
 /* category */
-.category {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.05),
-    /* Góc trên bên phải */ -5px 5px 5px rgba(0, 0, 0, 0.05),
-    /* Góc trên bên trái */ 5px -5px 5px rgba(0, 0, 0, 0.05),
-    /* Góc dưới bên phải */ -5px -5px 5px rgba(0, 0, 0, 0.05); /* Góc dưới bên trái */
+aside.category1 {
+    width: 250px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    height: 90rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-  background-color: #ffffff;
-  width: 100%;
-  height: 28rem;
-  border-radius: 9px;
-  margin-bottom: 35px;
-  display: flex;
-  flex-direction: column;
+.title-category {
+    margin-bottom: 20px;
 }
-.title_category {
-  display: flex;
-  justify-content: start;
-  border-bottom: #ccc solid 1px;
-  margin-bottom: 30px;
-}
+
 .text-title {
-  padding: 20px 20px;
-  font-size: 25px;
-  width: 100%;
-  font-weight: 500;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
 }
-.sp {
-  display: grid;
-  grid-template-columns: repeat(5, 0.3fr);
+
+.category-list {
+    list-style-type: none;
+    padding-left: 0;
 }
-.product_col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 15rem;
+
+.category-item {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
 }
-.product_col:hover {
-  transform: translateY(-5px);
-  transition: all 0.6s;
+
+.category-item:hover {
+    background-color: #f0f0f0;
 }
-.product_col img {
-  max-width: 100%;
-  object-fit: cover;
+
+.category-title {
+    font-size: 16px;
+    font-weight: 300;
 }
-.title_product {
-  margin-top: 20px;
-  color: #000;
-  font-size: 2rem;
+.cate {
+display: grid;
+grid-template-columns: repeat(2 , 1fr);
 }
+
 /* product_detail */
 .product_detail {
   max-width: 600px;
@@ -1546,6 +1563,12 @@ box-rsp:hover {
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+}
+.admin-reply {
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .comment-form button {
@@ -1664,6 +1687,17 @@ box-rsp:hover {
   top: 0;
   right: -60px;
   padding: 8px;
+}
+.out-of-stock-btn, .out-of-business-btn {
+  background-color: #fff;
+color: #000;
+font-size: 16px;
+font-weight: 300;
+padding: 8px 20px;
+border-radius: 5px;
+cursor: pointer;
+border: 1px solid #000;
+margin-top: 5px;
 }
 .product-name {
   font-size: 1.5rem;
@@ -1936,14 +1970,25 @@ box-rsp:hover {
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+  width: 5%;
 }
 .order-value-product {
+  width: 24rem;
+  text-align: center;
   margin: 10px 0px;
   font-weight: 400;
   font-size: 14px;
 }
-.order-value-quantity,
-.order-value-price {
+.order-value-quantity
+ {
+  font-weight: 400;
+  font-size: 14px;
+}
+.order-value-price{
+  font-weight: 400;
+  font-size: 14px;
+}
+.order-value-price-all{
   font-weight: 400;
   font-size: 14px;
 }
@@ -2168,4 +2213,17 @@ width: auto;
 .google-btn:hover{
  color: #ffffff;
  background-color: #000;
+}
+/* map */
+#map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px; /* Đặt chiều cao mong muốn */
+}
+
+#map iframe {
+  border: 0;
+  width: 80%; /* Đặt chiều rộng mong muốn */
+  height: 80%; /* Đặt chiều cao mong muốn */
 }

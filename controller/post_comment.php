@@ -4,13 +4,13 @@ include '../model/config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('location: login.php');
+    header('location: ../login.php');
     exit(); // Dừng việc thực hiện script
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = $_POST['product_id'];
-    $message = $_POST['comment']; // Đổi tên biến này từ 'comment' thành 'message'
+    $message = $_POST['comment']; 
     $user_id = $_SESSION['user_id'];
 
     // Thực hiện truy vấn để lưu tin nhắn vào cơ sở dữ liệu

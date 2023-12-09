@@ -1,24 +1,17 @@
 <?php
 include "./controller/add_to_cart.php";
-// Hàm để lấy số lượng bình luận cho một sản phẩm cụ thể
+
 function getCommentCount($productId, $pdo)
 {
     try {
-        // Chuẩn bị truy vấn SQL để đếm số lượng bình luận cho sản phẩm có ID tương ứng
-        $sql = "SELECT COUNT(*) AS comment_count FROM comment WHERE product_id = :product_id";
 
-        // Chuẩn bị và thực thi truy vấn
+        $sql = "SELECT COUNT(*) AS comment_count FROM comment WHERE product_id = :product_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
         $stmt->execute();
-
-        // Lấy kết quả
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // Trả về số lượng bình luận
         return $result['comment_count'];
     } catch (PDOException $e) {
-        // Xử lý lỗi nếu có
         echo "Error: " . $e->getMessage();
     }
 }
@@ -27,33 +20,32 @@ function getCommentCount($productId, $pdo)
 
 <!DOCTYPE html>
 <html lang="en">
-    
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Chủ</title>
-
-    <!-- font awesome cdn link  -->
+    <link rel="icon" href="./images/logo.avif" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-    <!-- custom css file link -->
     <link rel="stylesheet" href="css/style.css">
-
-
-    <!-- swiper css file cnd link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-69MB9K882P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-69MB9K882P');
+</script>
 <link rel="stylesheet" href="css/style1.css">
-<!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <style>
     a{
         text-decoration: none;
-    }
-    
+    }  
+
+
 </style>
 <body>
 
@@ -114,57 +106,73 @@ function getCommentCount($productId, $pdo)
 <section class="products">
     <h1 class="title">Đề xuất</h1>
     <div class="box-container">
-        <?php
-        $select_products = $pdo->query("SELECT * FROM `products` LIMIT 8");
+    <?php
+    $select_products = $pdo->query("SELECT * FROM `products` LIMIT 8");
 
-        if ($select_products->rowCount() > 0) {
-            while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-                // Get the number of comments for the current product.
-                $productId = $fetch_products['id'];
-                $commentCount = getCommentCount($productId, $pdo);
+    if ($select_products->rowCount() > 0) {
+        while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
+            $productId = $fetch_products['id'];
+            $commentCount = getCommentCount($productId, $pdo);
 
-                ?>
-                <form action="" method="post" class="box" id="addToCartForm">
-                    <a href="product_detail.php?product_id=<?php echo $fetch_products['id']; ?>">
-                        <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
-                    </a>
-                    <div class="name"><?php echo $fetch_products['name']; ?></div>
-                    <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
-                    <div class="radio-input">
-                        <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
+            // Kiểm tra trạng thái sản phẩm
+            $productStatus = $fetch_products['status_products'];
+
+            ?>
+            <form action="" method="post" class="box" id="addToCartForm">
+                <a href="product_detail.php?product_id=<?php echo $fetch_products['id']; ?>">
+                    <img class="image" src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
+                </a>
+                <div class="name"><?php echo $fetch_products['name']; ?></div>
+                <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
+                <div class="radio-input">
+                <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
                         <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
                         <input value="value-3" name="value-radio" id="value-3" type="radio" class="star s3" />
                         <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
                         <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
-                    </div>
-                    <div class="price-discount">
-    <?php
-    $originalPrice = $fetch_products['price'];
-    $discount = $fetch_products['discount'];
-    $discountedPrice = $originalPrice - ($originalPrice * $discount / 100);
-    echo number_format($discountedPrice, 0, ',', '.') . 'đ';
-    ?>
-</div>
+                </div>
+                <div class="price-discount">
+                    <?php
+                    $originalPrice = $fetch_products['price'];
+                    $discount = $fetch_products['discount'];
+                    $discountedPrice = $originalPrice - ($originalPrice * $discount / 100);
+                    echo number_format($discountedPrice, 0, ',', '.') . 'đ';
+                    ?>
+                </div>
 
+                <div class="comment-count">
+                    <span class="star-icon"></span>
+                    Bình luận: <?php echo $commentCount; ?>
+                </div>
 
-                    <div class="comment-count">
-                        <span class="star-icon"></i></span>
-                        Bình luận: <?php echo $commentCount; ?>
-                    </div>
+                <?php
+                // Hiển thị nút thêm giỏ hàng hoặc nút phù hợp tùy thuộc vào trạng thái sản phẩm
+                if ($productStatus === 'có sẵn') {
+                    ?>
                     <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
                     <input type="hidden" name="product_id" value="<?php echo isset($fetch_products['id']) ? $fetch_products['id'] : ''; ?>">
                     <input type="hidden" name="product_price" value="<?php echo $fetch_products['price']; ?>">
                     <input type="hidden" name="product_image" value="<?php echo $fetch_products['image']; ?>">
-
                     <input type="submit" value="Thêm giỏ hàng" name="add_to_cart" class="btn1">
-                </form>
-            <?php
-            }
-        } else {
-            echo '<p class="empty">no products added yet!</p>';
+                <?php
+                } elseif ($productStatus === 'ngưng kinh doanh') {
+                    ?>
+                    <button type="button" class="out-of-business-btn">Ngừng kinh doanh</button>
+                <?php
+                } elseif ($productStatus === 'hết hàng') {
+                    ?>
+                    <button type="button" class="out-of-stock-btn">Hết hàng</button>
+                <?php
+                }
+                ?>
+            </form>
+        <?php
         }
-        ?>
-    </div>
+    } else {
+        echo '<p class="empty">no products added yet!</p>';
+    }
+    ?>
+</div>
 
     <div class="load-more" style="margin-top: 2rem; text-align:center">
         <button class="read-more">
@@ -257,11 +265,7 @@ function getCommentCount($productId, $pdo)
         </button>
     </div>
 </section>
-
-
-<!-- Swiper JS file CDN link -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-<!-- Custom JS file link -->
 <?php include 'footer.php'; ?>
 <script src="js/script.js"></script>

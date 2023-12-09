@@ -1,5 +1,7 @@
 <?php 
 include './controller/adminCURDproduct.php';
+$categories_query = $pdo->query("SELECT id, name FROM categories");
+$categories = $categories_query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -35,10 +37,9 @@ include './controller/adminCURDproduct.php';
             <input type="text" name="supplier" class="box" placeholder="Nhập nhà cung cấp" required>
             <textarea name="in4" class="box" placeholder="Nhập thông tin sách"></textarea>
             <select name="category_id" class="box" required>
-        <option value="1">Tâm lý-1</option>
-        <option value="2">Động vật-2</option>
-        <option value="3">Đời sống-3</option>
-        <option value="4">Kinh dị-4</option>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+            <?php endforeach; ?>
     </select>
             <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
             <input type="submit" value="Thêm sản phẩm" name="add_product" class="btn">
@@ -48,39 +49,57 @@ include './controller/adminCURDproduct.php';
 
     <!-- Hiển thị sản phẩm -->
 
-    <section class="show-products">
-
-        <div class="box-container">
-
-            <?php
-            $select_products = $pdo->query("SELECT * FROM `products`");
-            if ($select_products->rowCount() > 0) {
+    <section class="show-prd">
+    <?php
+    $select_products = $pdo->query("SELECT products.*, categories.name AS category_name FROM `products` LEFT JOIN `categories` ON products.category_id = categories.id");
+    if ($select_products->rowCount() > 0) {
+    ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Tác giả</th>
+                    <th>Nhà xuất bản</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Thông tin sách</th>
+                    <th>Danh mục</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
                 while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                    <div class="box">
-                        <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
-                        <div class="name"><?php echo $fetch_products['name']; ?></div>
-                        <div class="price"><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></div>
-<div class="information-book">
-
-    <div class="author">Tác giả: <?php echo $fetch_products['tacgia']; ?></div>
-    <div class="publisher">Nhà xuất bản: <?php echo $fetch_products['nhaxuatban']; ?></div>
-    <div class="supplier">Nhà cung cấp: <?php echo $fetch_products['nhacungcap']; ?></div>
-    <div class="category">Danh mục: <?php echo $fetch_products['category_id']; ?></div>
-</div>
-
-                        <a href="admin_products.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn">Cập nhật</a>
-                        <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('Xóa sản phẩm này?');">Xóa</a>
-                    </div>
-            <?php
+                ?>
+                    <tr>
+                        <td><img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt=""></td>
+                        <td><?php echo $fetch_products['name']; ?></td>
+                        <td><?php echo number_format($fetch_products['price'], 0, ',', '.') . 'đ'; ?></td>
+                        <td><?php echo $fetch_products['tacgia']; ?></td>
+                        <td><?php echo $fetch_products['nhaxuatban']; ?></td>
+                        <td><?php echo $fetch_products['nhacungcap']; ?></td>
+                        <td><?php echo $fetch_products['in4']; ?></td>
+                        <td><?php echo $fetch_products['category_name']; ?></td>
+                        <td><?php echo $fetch_products['status_products']; ?></td>
+                        <td class="product-actions">
+                            <a href="admin_products.php?update=<?php echo $fetch_products['id']; ?>" class="update-button">Chỉnh sửa</a>
+                            <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-button" onclick="return confirm('Xóa sản phẩm này?');">Xóa</a>
+                        </td>
+                    </tr>
+                <?php
                 }
-            } else {
-                echo '<p class="empty">Chưa có sản phẩm nào được thêm!</p>';
-            }
-            ?>
-        </div>
+                ?>
+            </tbody>
+        </table>
+    <?php
+    } else {
+        echo '<p>Chưa có sản phẩm nào được thêm!</p>';
+    }
+    ?>
+</section>
 
-    </section>
 
     <section class="edit-product-form">
 
@@ -105,11 +124,19 @@ if (isset($_GET['update'])) {
             <textarea name="update_in4" class="box" placeholder="Nhập thông tin sách"><?php echo $fetch_update['in4']; ?></textarea>
             <label for="update_category">Chọn danh mục:</label>
             <select name="update_category_id" class="box" required>
-                <option value="1" <?php echo ($fetch_update['category_id'] == 1) ? 'selected' : ''; ?>>Tâm lý</option>
-                <option value="2" <?php echo ($fetch_update['category_id'] == 2) ? 'selected' : ''; ?>>Động vật</option>
-                <option value="3" <?php echo ($fetch_update['category_id'] == 3) ? 'selected' : ''; ?>>Đời sống</option>
-                <option value="4" <?php echo ($fetch_update['category_id'] == 4) ? 'selected' : ''; ?>>Kinh dị</option>
+            <?php foreach ($categories as $category): ?>
+                    <option value="<?php echo $category['id']; ?>" <?php echo ($fetch_update['category_id'] == $category['id']) ? 'selected' : ''; ?>>
+                        <?php echo $category['name']; ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
+            <label for="update_status">Chọn trạng thái:</label>
+<select name="update_status" class="box" required>
+    <option value="có sẵn" <?php echo ($fetch_update['status_products'] == 'có sẵn') ? 'selected' : ''; ?>>có sẵn</option>
+    <option value="ngưng kinh doanh" <?php echo ($fetch_update['status_products'] == 'ngưng kinh doanh') ? 'selected' : ''; ?>>ngưng kinh doanh</option>
+    <option value="hết hàng" <?php echo ($fetch_update['status_products'] == 'hết hàng') ? 'selected' : ''; ?>>hết hàng</option>
+</select>
+
             <input type="file" class="box" name="update_image" accept="image/jpg, image/jpeg, image/png">
             <input type="submit" value="Cập nhật" name="update_product" class="btn">
             <input type="reset" value="Hủy" id="close-update" class="option-btn">

@@ -5,16 +5,15 @@ require_once './vendor/autoload.php';
 include './controller/c_login.php';
 $clientID = '207747938873-pm2gin00oc1tkurs9k67d5u31f49vnab.apps.googleusercontent.com';
 $clientSecret = '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';
-$redirectUri = 'http://localhost:3000/controller/xulylogin.php'; // URL to handle Google login response
+$redirectUri = 'http://localhost:3000/controller/xulylogin.php';
 
-// Create a Google_Client object
+
 $client = new Google_Client();
 $client->setClientId($clientID);
 $client->setClientSecret($clientSecret);
 $client->setRedirectUri($redirectUri);
 $client->addScope("email");
-$client->addScope("profile");   
-// Create a URL for Google login
+$client->addScope("profile");  
 $googleLoginUrl = $client->createAuthUrl();
 
 ?>
@@ -40,9 +39,7 @@ $googleLoginUrl = $client->createAuthUrl();
 <body>
 <?php
 include './controller/message.php';
-
 ?>
-
 <div class="container-center">
     <div class="form-container" id="login-form">
         <form action="" method="post">
@@ -51,18 +48,17 @@ include './controller/message.php';
             <input type="password" name="password" placeholder="Mật khẩu" required class="box">
             <div class="btn-login">
                 <input type="submit" name="submit" value="Đăng nhập ngay" class="btn1">
-
-          
-      <?php 
-      if (isset($googleLoginUrl) && !isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
-        echo '<a href="' . $googleLoginUrl . '" class="google-btn"><i class="fab fa-google"></i> Đăng nhập bằng Google</a>';
-    }
-      ?>
+                <?php 
+                    if (isset($googleLoginUrl) && !isset($_SESSION['user_name']) && !isset($_SESSION['admin_name'])) {
+                        echo '<a href="' . $googleLoginUrl . '" class="google-btn"><i class="fab fa-google"></i> Đăng nhập bằng Google</a>';
+                    }
+                ?>
+            </div>
             <p>bạn chưa có tài khoản? <a href="register.php">Đăng kí ngay</a></p>
             <p><a href="#" onclick="showForgotPasswordForm()">Quên mật khẩu?</a></p>
         </form>
     </div>
-    <div class="form-container" id="forgot-password-form" style="display:none;">
+    <div class="form-container" id="forgot-password-form" style="display: none;">
         <form action="controller/forgot_password.php" method="post">
             <h3>Quên mật khẩu</h3>
             <p>Nhập địa chỉ email để khôi phục mật khẩu</p>
@@ -73,19 +69,16 @@ include './controller/message.php';
     </div>
 </div>
 
+
 <script>
-    function showForgotPasswordForm() {
+     function showForgotPasswordForm() {
         document.getElementById('login-form').style.display = 'none';
         document.getElementById('forgot-password-form').style.display = 'block';
     }
-
     function showLoginForm() {
         document.getElementById('login-form').style.display = 'block';
         document.getElementById('forgot-password-form').style.display = 'none';
     }
-
-
-  
 </script>
 <?php
 if (isset($_SESSION['admin_name']) || isset($_SESSION['user_name'])) {
@@ -93,7 +86,7 @@ if (isset($_SESSION['admin_name']) || isset($_SESSION['user_name'])) {
           <script>
             setTimeout(function(){
                 window.location.href = "' . (isset($_SESSION['admin_name']) ? 'admin_page.php' : 'index.php') . '";
-            }, 2000);
+            }, 1500);
           </script>';
 }
 ?>

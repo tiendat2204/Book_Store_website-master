@@ -23,6 +23,7 @@ if ($product_id) {
         $product_name = $product_data['name'];
         $product_price = $product_data['price'];
         $product_image = $product_data['image'];
+        $product_status = $product_data['status_products'];
         $related_products_query = $pdo->prepare("SELECT * FROM products WHERE category_id = :category_id AND id != :product_id LIMIT 10");
         $related_products_query->bindParam(':category_id', $product_data['category_id'], PDO::PARAM_INT);
         $related_products_query->bindParam(':product_id', $product_id, PDO::PARAM_INT);
@@ -50,12 +51,23 @@ if ($product_id) {
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- Thư viện Slick JavaScript từ CDN -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     
 </head>
-
 <body>
+    <style>
+        .out-of-stock-btn, .out-of-business-btn {
+      background-color: #fff;
+    color: #000;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #000;
+    margin-top: 5px;
+    }
+    </style>
     <?php include 'header.php'; ?>
 
     <div class="container">
@@ -83,16 +95,31 @@ if ($product_id) {
                         <p class="lead text-dark"><?php echo $product_info; ?></p>
 
                         <form action="" method="post">
-                            <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-                            <div class="d-flex">
-                                <button class="CartBtn" type="submit" name="add_to_cart">
-                                    <span class="IconContainer"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(17, 17, 17)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
-                                    </span>
-                                    <p class="text-btn">Thêm vào giỏ hàng</p>
-                                </button>
-                            </div>
-                        </form>
+    <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
+    <div class="d-flex">
+        <?php
+        if ($product_status === 'có sẵn') {
+            ?>
+            <button class="CartBtn" type="submit" name="add_to_cart">
+                <span class="IconContainer"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(17, 17, 17)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+                </span>
+                <p class="text-btn">Thêm vào giỏ hàng</p>
+            </button>
+        <?php
+        } elseif ($product_status === 'ngưng kinh doanh') {
+            ?>
+            <button type="button" class="out-of-business-btn">Ngưng kinh doanh</button>
+        <?php
+        } elseif ($product_status === 'hết hàng') {
+            ?>
+            <button type="button" class="out-of-stock-btn">Hết hàng</button>
+        <?php
+        }
+        ?>
+    </div>
+</form>
+
                     </div>
                 </div>
             </div>
@@ -150,36 +177,43 @@ if ($product_id) {
         </form>
 
         <div class="comments">
-            <h3>Bình luận:</h3>
-            <?php
-            $get_comments_query = $pdo->prepare("SELECT * FROM comment WHERE product_id = :product_id ORDER BY created_at DESC");
-            $get_comments_query->bindParam(':product_id', $product_id, PDO::PARAM_INT);
-            $get_comments_query->execute();
+    <h3>Bình luận:</h3>
+    <?php
+    $get_comments_query = $pdo->prepare("SELECT * FROM comment WHERE product_id = :product_id ORDER BY created_at DESC");
+    $get_comments_query->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+    $get_comments_query->execute();
 
-            if ($get_comments_query->rowCount() > 0) {
-                while ($comment_row = $get_comments_query->fetch(PDO::FETCH_ASSOC)) {
-                    $user_id = $comment_row['user_id'];
-                    $comment_text = $comment_row['message'];
-                    $created_at = $comment_row['created_at'];
+    if ($get_comments_query->rowCount() > 0) {
+        while ($comment_row = $get_comments_query->fetch(PDO::FETCH_ASSOC)) {
+            $user_id = $comment_row['user_id'];
+            $comment_text = $comment_row['message'];
+            $admin_reply = $comment_row['reply_message']; // Thay đổi tên cột
+            $created_at = $comment_row['created_at'];
 
-                    $get_user_query = $pdo->prepare("SELECT name FROM users WHERE id = :user_id");
-                    $get_user_query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-                    $get_user_query->execute();
-                    $user_row = $get_user_query->fetch(PDO::FETCH_ASSOC);
-                    $username = $user_row['name'];
+            $get_user_query = $pdo->prepare("SELECT name FROM users WHERE id = :user_id");
+            $get_user_query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $get_user_query->execute();
+            $user_row = $get_user_query->fetch(PDO::FETCH_ASSOC);
+            $username = $user_row['name'];
 
-                    $comment_time = date('Y-m-d H:i:s', strtotime($created_at));
+            $comment_time = date('Y-m-d H:i:s', strtotime($created_at));
 
-                    echo "<div class='comment-container'>
-                            <p class='comment'><strong>$username:</strong> $comment_text</p>
-                            <p class='comment-time'>$comment_time</p>
-                        </div>";
-                }
-            } else {
-                echo "<p>Chưa có bình luận nào.</p>";
+            echo "<div class='comment-container'>
+                    <p class='comment'><strong>$username:</strong> $comment_text</p>";
+
+            if (!empty($admin_reply)) {
+                echo "<p class='admin-reply'><strong>Admin:</strong> $admin_reply</p>";
             }
-            ?>
-        </div>
+
+            echo "<p class='comment-time'>$comment_time</p>
+                </div>";
+        }
+    } else {
+        echo "<p>Chưa có bình luận nào.</p>";
+    }
+    ?>
+</div>
+
     </div>
 
     <?php include 'footer.php'; ?>
