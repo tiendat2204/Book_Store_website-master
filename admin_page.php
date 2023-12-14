@@ -9,7 +9,12 @@ if (!isset($admin_id)) {
     header('location:login.php');
 }
 
-$categories = ['Tâm Lý', 'Kinh Dị', 'Đời Sống', 'Động Vật'];
+$categories = [];
+$select_categories = $pdo->query("SELECT name FROM `categories`");
+while ($row = $select_categories->fetch(PDO::FETCH_ASSOC)) {
+    $categories[] = $row['name'];
+}
+
 $productCounts = [];
 
 foreach ($categories as $category) {
@@ -21,31 +26,17 @@ foreach ($categories as $category) {
     array_push($productCounts, $count);
 }
 
-$number_of_comments = 0;
-$select_comments = $pdo->query("SELECT * FROM `comment`");
-$number_of_comments = $select_comments->rowCount();
+$number_of_comments = $pdo->query("SELECT COUNT(*) FROM `comment`")->fetchColumn();
 
-$number_of_products = 0;
-$select_products = $pdo->query("SELECT * FROM `products`");
-$number_of_products = $select_products->rowCount();
+$number_of_products = $pdo->query("SELECT COUNT(*) FROM `products`")->fetchColumn();
 
-$number_of_users = 0;
-$select_users = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'user'");
-$select_users->execute();
-$number_of_users = $select_users->rowCount();
+$number_of_users = $pdo->query("SELECT COUNT(*) FROM `users` WHERE user_type = 'user'")->fetchColumn();
 
-$number_of_admins = 0;
-$select_admins = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'admin'");
-$select_admins->execute();
-$number_of_admins = $select_admins->rowCount();
+$number_of_admins = $pdo->query("SELECT COUNT(*) FROM `users` WHERE user_type = 'admin'")->fetchColumn();
 
-$number_of_account = 0;
-$select_account = $pdo->query("SELECT * FROM `users`");
-$number_of_account = $select_account->rowCount();
+$number_of_account = $pdo->query("SELECT COUNT(*) FROM `users`")->fetchColumn();
 
-$number_of_messages = 0;
-$select_messages = $pdo->query("SELECT * FROM `message`");
-$number_of_messages = $select_messages->rowCount();
+$number_of_messages = $pdo->query("SELECT COUNT(*) FROM `message`")->fetchColumn();
 ?>
 
 
@@ -86,14 +77,9 @@ $number_of_messages = $select_messages->rowCount();
             <div class="box">
                 <?php
                 $total_pendings = 0;
-                $select_pending = $pdo->prepare("SELECT total_price FROM
-                `orders` WHERE payment_status = 'Đợi xác nhận'");
+                $select_pending = $pdo->prepare("SELECT SUM(total_price) as total_price FROM `orders` WHERE payment_status = 'Đợi xác nhận'");
                 $select_pending->execute();
-                $fetch_pendings = $select_pending->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($fetch_pendings as $pending) {
-                    $total_price = $pending['total_price'];
-                    $total_pendings += $total_price;
-                }
+                $total_pendings = $select_pending->fetchColumn();
                 ?>
              <h3><?php echo number_format($total_pendings, 0, ',', '.') . 'đ'; ?></h3>
 
@@ -103,14 +89,9 @@ $number_of_messages = $select_messages->rowCount();
             <div class="box">
                 <?php
                 $total_completed = 0;
-                $select_completed = $pdo->prepare("SELECT total_price FROM
-                `orders` WHERE payment_status = 'Đã giao hàng'");
+                $select_completed = $pdo->prepare("SELECT SUM(total_price) as total_price FROM `orders` WHERE payment_status = 'Đã giao hàng'");
                 $select_completed->execute();
-                $fetch_completed = $select_completed->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($fetch_completed as $completed) {
-                    $total_price = $completed['total_price'];
-                    $total_completed += $total_price;
-                }
+                $total_completed = $select_completed->fetchColumn();
                 ?>
               <h3><?php echo number_format($total_completed, 0, ',', '.') . 'đ'; ?></h3>
                 <p>thanh toán hoàn tất</p>
@@ -118,93 +99,89 @@ $number_of_messages = $select_messages->rowCount();
 
             <div class="box">
                 <?php
-                $select_orders = $pdo->query("SELECT * FROM `orders`");
-                $number_of_orders = $select_orders->rowCount();
+                $number_of_orders = $pdo->query("SELECT COUNT(*) FROM `orders`")->fetchColumn();
                 ?>
                 <h3><?php echo $number_of_orders; ?></h3>
                 <p>Đang đặt hàng</p>
             </div>
 
             <div class="box">
-                <?php
-                $select_products = $pdo->query("SELECT * FROM `products`");
-                $number_of_products = $select_products->rowCount();
-                ?>
                 <h3><?php echo $number_of_products; ?></h3>
                 <p>Tổng sản phẩm</p>
             </div>
 
             <div class="box">
-                <?php
-                $select_users = $pdo->prepare("SELECT * FROM `users` WHERE user_type = 'user'");
-                $select_users->execute();
-                $number_of_users = $select_users->rowCount();
-                ?>
                 <h3><?php echo $number_of_users; ?></h3>
                 <p>Người dùng</p>
             </div>
 
             <div class="box">
-    <h3><?php echo $number_of_comments; ?></h3>
-    <p>Số bình luận</p>
-</div>
+                <h3><?php echo $number_of_comments; ?></h3>
+                <p>Số bình luận</p>
+            </div>
 
             <div class="box">
-                <?php
-                $select_account = $pdo->query("SELECT * FROM `users`");
-                $number_of_account = $select_account->rowCount();
-                ?>
                 <h3><?php echo $number_of_account; ?></h3>
                 <p>Tổng số người dùng  </p>
             </div>
 
             <div class="box">
-                <?php
-                $select_messages = $pdo->query("SELECT * FROM `message`");
-                $number_of_messages = $select_messages->rowCount();
-                ?>
                 <h3><?php echo $number_of_messages; ?></h3>
                 <p>các tin nhắn mới</p>
             </div>
           
               
             </div>
-                <div class="chart">
-
-                    <canvas id="doughnutChart" width="500" height="500"></canvas>
-                    <canvas id="lineChart" width="500" height="250"></canvas>
-                </div>
+            <div class="chart">
+            <canvas id="doughnutChart" width="500" height="500"></canvas>
+            <canvas id="lineChart" width="500" height="250"></canvas>
+        </div>
         </div>
     </section>
-   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-    // Lấy thẻ <canvas> cho biểu đồ Doughnut
-    var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
-
-var doughnutData = {
    
-    labels: ['TÂM LÝ', 'KINH DỊ', 'ĐỜI SỐNG', 'ĐỘNG VẬT'], // Đặt nhãn tùy chọn cho các danh mục
+   var doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+var doughnutData = {
+    labels: <?php echo json_encode($categories); ?>,
     datasets: [{
-        data: [
-            <?php echo $productCounts[0]; ?>,
-            <?php echo $productCounts[1]; ?>,
-            <?php echo $productCounts[2]; ?>,
-            <?php echo $productCounts[3]; ?>
-        ],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(54, 162, 235, 0.5'],
-        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 205, 86, 1)', 'rgba(54, 162, 235, 1)'],
-        borderWidth: 1
+        data: <?php echo json_encode($productCounts); ?>,
+        backgroundColor: [
+      'rgba(155, 99, 132, 0.5)',
+      'rgba(55, 192, 192, 0.5)',
+      'rgba(255, 205, 86, 0.5)',
+      'rgba(54, 162, 235, 0.5)',
+      'rgba(255, 159, 64, 0.5)',
+      'rgba(13, 102, 255, 0.5)',
+      'rgba(255, 99, 132, 0.5)',
+      'rgba(75, 192, 192, 0.5)',
+      'rgba(355, 205, 86, 0.5)',
+      'rgba(54, 162, 235, 0.5)'
+    ],
+    borderColor: [
+      'rgba(155, 99, 132, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(255, 205, 86, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 159, 64, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(255, 99, 132, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(255, 205, 86, 1)',
+      'rgba(54, 162, 235, 1)'
+    ],
+    borderWidth: 1
     }]
 };
-
 var doughnutChart = new Chart(doughnutCtx, {
     type: 'doughnut',
     data: doughnutData,
     options: {
-        responsive: false, 
+        responsive: false,
     }
 });
- 
+
+
     var lineCtx = document.getElementById('lineChart').getContext('2d');
 
 var lineData = {
@@ -241,3 +218,5 @@ var lineChart = new Chart(lineCtx, {
 </body>
 
 </html>
+
+

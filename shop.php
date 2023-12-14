@@ -81,6 +81,13 @@ function getCategories($pdo)
                     echo number_format($discountedPrice, 0, ',', '.') . 'đ';
                     ?>
                 </div>
+                <div class="radio-input">
+                                    <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
+                                    <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
+                                    <input value="value-3" name="value-radio" id="value-3" type="radio" class="star s3" />
+                                    <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
+                                    <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
+                                </div>
                 <div class="comment-count">
                     <span class="star-icon"></i></span>
                     Bình luận: <?php echo $commentCount; ?>

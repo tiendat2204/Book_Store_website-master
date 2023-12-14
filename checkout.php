@@ -78,8 +78,6 @@ include './controller/thanhtoan.php';
       <select name="method" required>
         <option value="">--Chọn phương thức thanh toán--</option>
         <option value="thanh toán khi nhận hàng">Thanh toán khi nhận hàng</option>
-        <option value="thẻ tín dụng">Thẻ tín dụng</option>
-        <option value="paypal">Zalopay</option>
         <option value="MoMo">MoMo</option>
         <option value="vnpay">VNpay</option>
       </select>

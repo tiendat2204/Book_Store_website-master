@@ -152,6 +152,7 @@ function getCommentCount($productId, $pdo)
                     data: formData,
                     dataType: "json",
                     success: function (data) {
+                        console.log(data);
                         displaySearchResults(data);
                     },
                     error: function (error) {
@@ -161,42 +162,49 @@ function getCommentCount($productId, $pdo)
             });
 
             function displaySearchResults(data) {
-                var searchResults = $("#searchResults");
-                searchResults.empty();
+    var searchResults = $("#searchResults");
+    searchResults.empty();
 
-                if (data.length > 0) {
-                    data.forEach(function (product) {
-                        var productHtml = `
-                            <form action="" method="post" class="box">
-                                <a href="product_detail.php?product_id=${product.id}">
-                                    <img class="image" src="uploaded_img/${product.image}" alt="">
-                                </a>
-                                <div class="name">${product.name}</div>
-                                <div class="price">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</div>
-                                <div class="radio-input">
-                                    <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
-                                    <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
-                                    <input value="value-3" name="value-radio" id="value-3" type="radio" class="star s3" />
-                                    <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
-                                    <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
-                                </div>
-                                <div class="price-discount">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</div>
-                                <div class="comment-count">
-                                    <span class="star-icon"></span>
-                                    Bình luận: 0
-                                </div>
-                                <input type="hidden" name="product_id" value="${product.id}">
-                                <input type="hidden" name="product_price" value="${product.price}">
-                                <input type="hidden" name="product_image" value="${product.image}">
-                                <input type="submit" value="Thêm giỏ hàng" name="add_to_cart" class="btn1">
-                            </form>
-                        `;
-                        searchResults.append(productHtml);
-                    });
-                } else {
-                    searchResults.append("<p>Không tìm thấy sản phẩm nào.</p>");
-                }
-            }
+    if (data.length > 0) {
+        data.forEach(function (product) {
+            var productHtml = `
+                <form action="" method="post" class="box">
+                    <a href="product_detail.php?product_id=${product.id}">
+                        <img class="image" src="uploaded_img/${product.image}" alt="">
+                    </a>
+                    <div class="name">${product.name}</div>
+                    <div class="price">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</div>
+                    <div class="radio-input">
+                        <input value="value-1" name="value-radio" id="value-1" type="radio" class="star s1" />
+                        <input value="value-2" name="value-radio" id="value-2" type="radio" class="star s2" />
+                        <input value="value-3" name="value-radio" id="value-3" type="radio" class="star s3" />
+                        <input value="value-4" name="value-radio" id="value-4" type="radio" class="star s4" />
+                        <input value="value-5" name="value-radio" id="value-5" type="radio" class="star s5" />
+                    </div>
+                    <div class="price-discount">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</div>
+                    <div class="comment-count">
+                        <span class="star-icon"></span>
+                        Bình luận: 0
+                    </div>
+                    ${product.status_products === 'có sẵn' ?
+                        `<input type="hidden" name="product_name" value="${product.name}">
+                        <input type="hidden" name="product_id" value="${product.id}">
+                        <input type="hidden" name="product_price" value="${product.price}">
+                        <input type="hidden" name="product_image" value="${product.image}">
+                        <input type="submit" value="Thêm vào giỏ hàng" name="add_to_cart" class="btn1">` :
+                        (product.status_products === 'ngưng kinh doanh' ?
+                            `<button type="button" class="out-of-business-btn">Ngừng kinh doanh</button>` :
+                            `<button type="button" class="out-of-stock-btn">Hết hàng</button>`)}
+                </form>
+            `;
+            searchResults.append(productHtml);
+        });
+    } else {
+        searchResults.append("<p>Không tìm thấy sản phẩm nào.</p>");
+    }
+}
+
+
         });
     </script>
 </body>

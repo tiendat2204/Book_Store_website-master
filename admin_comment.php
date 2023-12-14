@@ -83,7 +83,6 @@ if (isset($_GET['delete'])) {
     </form>
 </td>
 
-
                         </tr>
                         <?php
                     }

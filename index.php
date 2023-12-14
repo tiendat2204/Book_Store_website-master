@@ -17,7 +17,6 @@ function getCommentCount($productId, $pdo)
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,7 +106,7 @@ function getCommentCount($productId, $pdo)
     <h1 class="title">Đề xuất</h1>
     <div class="box-container">
     <?php
-    $select_products = $pdo->query("SELECT * FROM `products` LIMIT 8");
+    $select_products = $pdo->query("SELECT * FROM `products` LIMIT 8 ");
 
     if ($select_products->rowCount() > 0) {
         while ($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)) {
@@ -146,7 +145,6 @@ function getCommentCount($productId, $pdo)
                 </div>
 
                 <?php
-                // Hiển thị nút thêm giỏ hàng hoặc nút phù hợp tùy thuộc vào trạng thái sản phẩm
                 if ($productStatus === 'có sẵn') {
                     ?>
                     <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
